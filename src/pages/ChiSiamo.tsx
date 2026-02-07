@@ -10,9 +10,21 @@ const fadeUp = {
 };
 
 const founders = [
-  { name: "Sofia Ferrara", role: "Direttrice Creativa", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face" },
-  { name: "Marco Ferrara", role: "CEO & Co-Fondatore", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face" },
-  { name: "Elena Ferrara", role: "Responsabile Sostenibilità", img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face" },
+  {
+    name: "Sofia Ferrara",
+    role: "Direttrice Creativa",
+    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face",
+  },
+  {
+    name: "Marco Ferrara",
+    role: "CEO & Co-Fondatore",
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
+  },
+  {
+    name: "Elena Ferrara",
+    role: "Responsabile Sostenibilità",
+    img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face",
+  },
 ];
 
 const timelineData = [
@@ -21,11 +33,21 @@ const timelineData = [
     content: (
       <div>
         <p className="text-muted-foreground text-sm md:text-base font-normal mb-8">
-          Tutto inizia nelle acque cristalline della Costa Smeralda. Ispirati dalla bellezza incontaminata della Sardegna, abbiamo deciso di creare un brand che unisse l'estetica del "Lusso Lento" con una missione urgente: proteggere il nostro mare.
+          Tutto inizia nelle acque cristalline della Costa Smeralda. Ispirati dalla bellezza incontaminata della
+          Sardegna, abbiamo deciso di creare un brand che unisse l'estetica del "Lusso Lento" con una missione urgente:
+          proteggere il nostro mare.
         </p>
         <div className="grid grid-cols-2 gap-4">
-          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop" alt="Costa Smeralda" className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md" />
-          <img src="https://images.unsplash.com/photo-1516834474-48c0abc2a902?q=80&w=2073&auto=format&fit=crop" alt="Sketching" className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md" />
+          <img
+            src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop"
+            alt="Costa Smeralda"
+            className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1516834474-48c0abc2a902?q=80&w=2073&auto=format&fit=crop"
+            alt="Sketching"
+            className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
+          />
         </div>
       </div>
     ),
@@ -35,9 +57,14 @@ const timelineData = [
     content: (
       <div>
         <p className="text-muted-foreground text-sm md:text-base font-normal mb-8">
-          Non bastava essere belli. Dovevamo essere puliti. Abbiamo introdotto l'uso esclusivo di fibre rigenerate da reti da pesca recuperate, trasformando un rifiuto in seta tecnologica.
+          Non bastava essere belli. Dovevamo essere puliti. Abbiamo introdotto l'uso esclusivo di fibre rigenerate da
+          reti da pesca recuperate, trasformando un rifiuto in seta tecnologica.
         </p>
-        <img src="https://images.unsplash.com/photo-1532667449560-72a95c8d381b?q=80&w=2070&auto=format&fit=crop" alt="Textile Process" className="rounded-lg object-cover h-40 md:h-64 w-full shadow-md" />
+        <img
+          src="https://images.unsplash.com/photo-1532667449560-72a95c8d381b?q=80&w=2070&auto=format&fit=crop"
+          alt="Textile Process"
+          className="rounded-lg object-cover h-40 md:h-64 w-full shadow-md"
+        />
       </div>
     ),
   },
@@ -46,7 +73,8 @@ const timelineData = [
     content: (
       <div>
         <p className="text-muted-foreground text-sm md:text-base font-normal mb-4">
-          Con il lancio dell'Emerald Scanner, portiamo la trasparenza totale nelle mani del cliente. Ogni capo ha una storia digitale, ogni acquisto è un atto di consapevolezza.
+          Con il lancio dell'Emerald Scanner, portiamo la trasparenza totale nelle mani del cliente. Ogni capo ha una
+          storia digitale, ogni acquisto è un atto di consapevolezza.
         </p>
       </div>
     ),
@@ -58,7 +86,7 @@ const ChiSiamo = () => {
     <main className="pt-0">
       <ScrollExpandMedia
         mediaType="image"
-        mediaSrc="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop"
+        mediaSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/sfondo%20emerald%20scanner.PNG"
         bgImageSrc="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop"
         title="Chi Siamo"
         scrollToExpand="Scorri per esplorare"
@@ -70,8 +98,8 @@ const ChiSiamo = () => {
             <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-sans mb-2">La nostra storia</p>
             <h1 className="font-serif text-5xl md:text-6xl mb-6">Chi Siamo</h1>
             <p className="text-muted-foreground font-sans leading-relaxed">
-              Dalla Costa Smeralda al mondo. EMERALDRESS nasce dalla visione di unire l'artigianato sardo
-              con l'innovazione tessile sostenibile, creando capi che rispettano la Terra senza compromessi sull'eleganza.
+              Dalla Costa Smeralda al mondo. EMERALDRESS nasce dalla visione di unire l'artigianato sardo con
+              l'innovazione tessile sostenibile, creando capi che rispettano la Terra senza compromessi sull'eleganza.
             </p>
           </motion.div>
 
