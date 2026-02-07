@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const Footer = () => <footer className="bg-foreground text-background py-16 mt-20">
+const Footer = () => <footer className="bg-foreground text-background mt-20 py-[66px]">
     <div className="container mx-auto px-4 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         <div>
