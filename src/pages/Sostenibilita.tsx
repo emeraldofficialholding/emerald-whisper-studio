@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom"; // Assicurati di avere react-router-dom o usa <a> se preferisci
+import { ArrowRight, Recycle, Leaf, ShoppingBag } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
-// --- DATI DEL CAROSELLO (Già approvati - INVARIATI) ---
+// --- DATI DEL CAROSELLO ---
 const slides = [
   {
     id: 1,
@@ -44,7 +44,7 @@ const slides = [
   },
 ];
 
-// --- DATI NUOVA COLLEZIONE (Per i 3 Riquadri) ---
+// --- DATI NUOVA COLLEZIONE ---
 const latestDrops = [
   {
     id: 101,
@@ -66,7 +66,7 @@ const latestDrops = [
   },
 ];
 
-// --- COMPONENTE 1: HERO SECTION (INVARIATO) ---
+// --- COMPONENTE HERO ---
 const HeroSustainability = () => (
   <section className="relative h-[85vh] w-full overflow-hidden">
     <div className="absolute inset-0">
@@ -100,15 +100,65 @@ const HeroSustainability = () => (
   </section>
 );
 
-// --- NUOVA SEZIONE: LATEST COLLECTION SHOWCASE (Design Reference) ---
+// --- NUOVO COMPONENTE: BLACK BANNER (ICONS) ---
+const SustainabilityBanner = () => {
+  const items = [
+    {
+      icon: Recycle,
+      title: "Recupero Attivo",
+      desc: "Trasformiamo reti da pesca e plastica in filati preziosi.",
+    },
+    {
+      icon: Leaf,
+      title: "Impatto Zero",
+      desc: "Produzione certificata che rispetta l'ecosistema marino.",
+    },
+    {
+      icon: ShoppingBag,
+      title: "Acquisto Etico",
+      desc: "Ogni tuo ordine supporta l'artigianato italiano.",
+    },
+  ];
+
+  return (
+    <section className="bg-neutral-950 text-white py-20 border-t border-neutral-900">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          {items.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center text-center group relative"
+            >
+              {/* Separatore verticale (solo desktop, tra gli elementi) */}
+              {index !== 0 && (
+                <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-24 bg-neutral-800" />
+              )}
+
+              {/* Icona con cerchio glow */}
+              <div className="w-20 h-20 rounded-full bg-emerald-900/20 border border-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-900/40 group-hover:border-emerald-500 transition-all duration-500">
+                <item.icon className="w-8 h-8 text-emerald-400" />
+              </div>
+
+              <h3 className="font-serif text-2xl mb-3 text-emerald-50">{item.title}</h3>
+              <p className="text-neutral-400 font-sans max-w-xs leading-relaxed">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- COMPONENTE: LATEST COLLECTION SHOWCASE ---
 const LatestCollectionShowcase = () => {
   return (
     <section className="py-32 bg-white relative overflow-hidden">
-      {/* Background Glow Effect (The Beam from reference, adapted to Emerald) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-100/50 rounded-full blur-[120px] pointer-events-none" />
-
       <div className="container mx-auto px-4 relative z-10">
-        {/* Title */}
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -123,7 +173,6 @@ const LatestCollectionShowcase = () => {
           </p>
         </div>
 
-        {/* The 3 Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-12 items-center justify-center max-w-6xl mx-auto mb-20">
           {latestDrops.map((item, index) => (
             <motion.div
@@ -138,9 +187,7 @@ const LatestCollectionShowcase = () => {
                 ${index === 1 ? "md:z-10 md:-mt-8 shadow-[0_20px_50px_rgba(5,150,105,0.15)]" : ""} 
                 ${index === 2 ? "md:rotate-[3deg] md:mt-12" : ""}
               `}
-              // Note: The rotations mimic the "fan" layout in the reference photo
             >
-              {/* Card Image */}
               <div className="aspect-[3/4] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 z-10" />
                 <img
@@ -149,21 +196,15 @@ const LatestCollectionShowcase = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
-
-              {/* Card Content (Bottom) */}
               <div className="absolute bottom-0 left-0 w-full p-6 z-20 text-white">
                 <div className="w-10 h-1 bg-emerald-400 mb-4 rounded-full" />
                 <h3 className="font-serif text-2xl mb-1">{item.name}</h3>
                 <p className="font-sans text-emerald-200 text-sm tracking-widest">{item.price}</p>
               </div>
-
-              {/* Glossy Overlay Effect (Reference Style) */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </motion.div>
           ))}
         </div>
 
-        {/* CTA Button */}
         <div className="flex justify-center">
           <Link to="/collezioni">
             <HoverBorderGradient
@@ -184,7 +225,7 @@ const LatestCollectionShowcase = () => {
 const Sostenibilita = () => {
   return (
     <main className="bg-white">
-      {/* 1. HERO SECTION (Video) */}
+      {/* 1. HERO SECTION */}
       <HeroSustainability />
 
       {/* 2. IL CAROSELLO (Il Processo) */}
@@ -200,7 +241,6 @@ const Sostenibilita = () => {
               <CarouselItem key={slide.id}>
                 <div className="p-1">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 items-center min-h-[500px]">
-                    {/* Immagine */}
                     <motion.div
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
@@ -219,7 +259,6 @@ const Sostenibilita = () => {
                         </span>
                       </div>
                     </motion.div>
-                    {/* Testo */}
                     <motion.div className="text-center lg:text-left py-10 px-6">
                       <h2 className="text-[5rem] md:text-[8rem] leading-none font-serif text-emerald-600 font-medium mb-4">
                         {slide.percentage}
@@ -248,7 +287,10 @@ const Sostenibilita = () => {
         </Carousel>
       </section>
 
-      {/* 3. NUOVA SEZIONE: LATEST COLLECTION SHOWCASE */}
+      {/* 3. NUOVO BANNER NERO (Tra Carosello e Nuovi Arrivi) */}
+      <SustainabilityBanner />
+
+      {/* 4. NUOVI ARRIVI */}
       <LatestCollectionShowcase />
     </main>
   );
