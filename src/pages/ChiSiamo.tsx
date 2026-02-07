@@ -92,7 +92,7 @@ const ChiSiamo = () => {
           {/* Animated Timeline */}
           <Timeline data={timelineData} />
 
-          {/* SOCIAL DRESS SECTION (New Replacement for Founders) */}
+          {/* SEZIONE 1: SOCIAL DRESS (Sostituisce i Fondatori) */}
           <section className="py-24 bg-[#F9FAF9] overflow-hidden relative">
             <div className="container mx-auto px-4 lg:px-8">
               <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20">
@@ -128,7 +128,6 @@ const ChiSiamo = () => {
                   </p>
 
                   <div className="flex justify-center md:justify-start items-center gap-4">
-                    {/* SVG Arrow pointing to button */}
                     <span className="font-handwriting text-pink-500 transform -rotate-12 text-sm hidden lg:block">
                       Join the club!
                     </span>
@@ -153,28 +152,19 @@ const ChiSiamo = () => {
                   viewport={{ once: true }}
                   className="w-full md:w-1/2 flex justify-center md:justify-end relative"
                 >
-                  {/* Phone Frame */}
                   <div className="relative w-[300px] h-[600px] bg-neutral-900 rounded-[3rem] border-[8px] border-neutral-800 shadow-2xl overflow-hidden">
-                    {/* Dynamic Notch */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-20"></div>
-
-                    {/* Screen Content (Instagram Mockup) */}
                     <div className="w-full h-full bg-white relative">
-                      {/* Insta Header */}
                       <div className="h-20 bg-white border-b border-neutral-100 flex items-end pb-2 px-4 justify-between z-10 relative">
                         <span className="font-bold text-sm">emeraldress_</span>
                         <Instagram className="w-5 h-5 text-neutral-800" />
                       </div>
-
-                      {/* Insta Story/Feed Image */}
                       <div className="w-full h-[calc(100%-80px)] relative">
                         <img
                           src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop"
                           alt="Instagram Feed"
                           className="w-full h-full object-cover"
                         />
-
-                        {/* Overlay Gradient */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6 text-white">
                           <div className="flex gap-2 items-center mb-2">
                             <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white"></div>
@@ -187,24 +177,39 @@ const ChiSiamo = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Floating Elements/Stickers */}
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                    className="absolute -right-4 top-20 bg-white p-3 shadow-lg rounded-lg rotate-12 hidden lg:block"
-                  >
-                    <span className="text-2xl">✨</span>
-                  </motion.div>
-
-                  <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                    className="absolute -left-8 bottom-40 bg-[#e4ffec] text-emerald-900 px-4 py-2 shadow-lg rounded-full -rotate-6 hidden lg:block font-serif italic"
-                  >
-                    New Collection
-                  </motion.div>
                 </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* SEZIONE 2: STATS BANNER NERO (Subito dopo Social Dress, prima del footer) */}
+          <section className="bg-neutral-950 text-white py-8 border-t border-neutral-800">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-16">
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="text-sm md:text-base font-bold tracking-[0.2em] uppercase font-sans">
+                    8000 Followers
+                  </span>
+                </div>
+
+                <div className="hidden md:block w-px h-6 bg-neutral-800"></div>
+
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="text-sm md:text-base font-bold tracking-[0.2em] uppercase font-sans">
+                    Made in ITALY
+                  </span>
+                </div>
+
+                <div className="hidden md:block w-px h-6 bg-neutral-800"></div>
+
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="text-sm md:text-base font-bold tracking-[0.2em] uppercase font-sans">
+                    Ogni settimana nuovi contenuti
+                  </span>
+                </div>
               </div>
             </div>
           </section>
