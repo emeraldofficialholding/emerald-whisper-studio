@@ -43,20 +43,21 @@ const slides = [
   },
 ];
 
-// --- COMPONENTE 1: HERO SECTION (Foto sfumata + Titolo Sx) ---
+// --- COMPONENTE 1: HERO SECTION (Video Background + Titolo Sx) ---
 const HeroSustainability = () => (
   <section className="relative h-[85vh] w-full overflow-hidden">
-    {/* Background Image con sfocatura e overlay scuro */}
+    {/* Background Video con sfocatura e overlay scuro */}
     <div className="absolute inset-0">
-      <img
-        src="https://images.unsplash.com/photo-1533224213606-25f0a074c5d5?q=80&w=2070&auto=format&fit=crop" // Foto Mare/Natura astratta
-        alt="Emeraldress Sustainability"
-        className="w-full h-full object-cover blur-[2px] scale-105"
-      />
+      <video autoPlay loop muted playsInline className="w-full h-full object-cover blur-[2px] scale-105">
+        <source
+          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/e5ce34aaaf008c541e7645ddb5233fae0c320bbf2cec96cb53fb1e40e1806251.mp4"
+          type="video/mp4"
+        />
+      </video>
       <div className="absolute inset-0 bg-black/30" /> {/* Overlay per leggibilità */}
     </div>
 
-    {/* Contenuto a Sinistra */}
+    {/* Contenuto a Sinistra (INVARIATO) */}
     <div className="absolute inset-0 container mx-auto px-4 flex items-center">
       <motion.div
         initial={{ opacity: 0, x: -50 }}
