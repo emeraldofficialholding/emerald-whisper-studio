@@ -91,4 +91,4 @@ export function MarqueeAnimation({
     </div>
   );
 }
-export default TrustMarquee;
+export default MarqueeAnimation;
