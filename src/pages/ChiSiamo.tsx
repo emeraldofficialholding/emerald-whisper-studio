@@ -86,7 +86,7 @@ const ChiSiamo = () => {
     <main className="pt-0">
       <ScrollExpandMedia
         mediaType="image"
-        mediaSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/dettaglio.jpeg"
+        mediaSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/dettaglio%20emerald%20touch.JPG"
         bgImageSrc="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop"
         title="Emerald Dress"
         scrollToExpand="Scorri per esplorare"
