@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Import per la navigazione
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
@@ -9,7 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/supabaseCustom";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { Upload, Leaf, ArrowRight, Shirt } from "lucide-react"; // Aggiunta icona Shirt
+import { Upload, Gem, ArrowRight, Shirt, Waves, TestTube, Scissors, Repeat } from "lucide-react"; // Nuove icone
 import ScanningRadar from "@/components/ScanningRadar";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
@@ -76,19 +76,40 @@ const EmeraldScanner = () => {
     toast.success(`Punteggio sostenibilità: ${mockScore}/100`);
   };
 
+  // Dati per la Roadmap dei 4 Pilastri
+  const pillars = [
+    { title: "Recupero", icon: Waves, desc: "Reti & Plastica" },
+    { title: "Rigenerazione", icon: TestTube, desc: "Filo Puro" },
+    { title: "Creazione", icon: Scissors, desc: "Made in Italy" },
+    { title: "Circolarità", icon: Repeat, desc: "Riuso Infinito" },
+  ];
+
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen relative overflow-hidden">
+      {/* DECORAZIONI SMERALDO FLUTTUANTI (Sfondo) */}
+      <div className="absolute top-20 left-10 opacity-20 pointer-events-none animate-pulse">
+        <Gem className="w-24 h-24 text-emerald-300 rotate-12" />
+      </div>
+      <div className="absolute top-1/2 right-10 opacity-20 pointer-events-none animate-pulse delay-700">
+        <Gem className="w-16 h-16 text-emerald-400 -rotate-12" />
+      </div>
+      <div className="absolute bottom-40 left-1/4 opacity-10 pointer-events-none">
+        <div className="w-64 h-64 bg-emerald-200 rounded-full blur-[100px]" />
+      </div>
+
       {/* SEZIONE 1: LO SCANNER (Container Scroll) */}
-      <div className="pt-10">
+      <div className="pt-10 relative z-10">
         <ContainerScroll
           titleComponent={
             <div className="flex flex-col items-center gap-6 mb-12">
+              {/* Icona Smeraldo Principale */}
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: "spring" }}
+                className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-700 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.4)] border-4 border-emerald-100"
               >
-                <Leaf className="w-8 h-8 text-emerald-600" />
+                <Gem className="w-10 h-10 text-white drop-shadow-md" />
               </motion.div>
 
               <div className="space-y-2">
@@ -103,9 +124,9 @@ const EmeraldScanner = () => {
             </div>
           }
         >
-          {/* SCANNER INTERFACE INSIDE THE IPAD SCREEN */}
-          <div className="h-full w-full overflow-y-auto p-4 md:p-8 bg-white">
-            <div className="max-w-xl mx-auto pt-4">
+          {/* INTERFACCIA IPAD */}
+          <div className="h-full w-full overflow-y-auto p-4 md:p-8 bg-white relative">
+            <div className="max-w-xl mx-auto pt-4 relative z-10">
               <Tabs defaultValue="manual" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-8 bg-neutral-100 p-1 rounded-full">
                   <TabsTrigger
@@ -233,7 +254,7 @@ const EmeraldScanner = () => {
                 >
                   <div className="flex justify-center mb-4">
                     <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <Leaf className="w-6 h-6 text-emerald-600" />
+                      <Gem className="w-6 h-6 text-emerald-600" />
                     </div>
                   </div>
                   <p className="text-xs tracking-widest uppercase font-sans text-emerald-600 mb-2 font-bold">
@@ -254,36 +275,50 @@ const EmeraldScanner = () => {
         </ContainerScroll>
       </div>
 
-      {/* SEZIONE 2: LINK A SOSTENIBILITÀ */}
-      <section className="py-24 bg-neutral-50 border-t border-neutral-100">
-        <div className="container mx-auto px-4">
+      {/* SEZIONE 2: LINK A SOSTENIBILITÀ (Con Roadmap 4 Pilastri) */}
+      <section className="py-24 bg-neutral-50 border-t border-neutral-100 relative overflow-hidden">
+        {/* Decorazione sfondo */}
+        <Gem className="absolute -left-10 top-20 w-40 h-40 text-emerald-500/5 rotate-45" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12 max-w-6xl mx-auto">
-            <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
+            <div className="w-full md:w-5/12 space-y-6 text-center md:text-left">
               <h2 className="font-serif text-4xl md:text-5xl text-neutral-900">Come funziona il punteggio?</h2>
               <p className="text-lg text-neutral-600 font-sans leading-relaxed">
-                Il nostro algoritmo si basa sui 4 pilastri della sostenibilità: Recupero, Rigenerazione, Creazione e
-                Circolarità. Scopri come trasformiamo le reti da pesca in alta moda.
+                Il nostro algoritmo si basa sui 4 pilastri della sostenibilità Emeraldress. Un ciclo virtuoso che
+                trasforma lo scarto in bellezza.
               </p>
-              <div className="flex justify-center md:justify-start">
+              <div className="flex justify-center md:justify-start pt-4">
                 <Link to="/sostenibilita">
                   <HoverBorderGradient
                     containerClassName="rounded-full"
                     className="bg-white text-emerald-950 flex items-center gap-2 font-medium"
                   >
-                    <Leaf className="w-4 h-4" />
-                    IL NOSTRO METODO
+                    <Gem className="w-4 h-4" />
+                    APPROFONDISCI I PILASTRI
                   </HoverBorderGradient>
                 </Link>
               </div>
             </div>
 
-            {/* Visual Graphic */}
-            <div className="w-full md:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-md aspect-square bg-white rounded-full p-8 shadow-xl border border-emerald-50 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full border border-dashed border-emerald-200 animate-[spin_10s_linear_infinite]" />
-                <div className="text-center space-y-2">
-                  <div className="text-5xl font-serif text-emerald-900">100%</div>
-                  <div className="text-xs tracking-widest uppercase text-emerald-600">Trasparenza</div>
+            {/* Visual Roadmap (4 Pilastri) */}
+            <div className="w-full md:w-7/12">
+              <div className="bg-white rounded-3xl p-8 shadow-xl border border-emerald-50 relative">
+                {/* Linea di connessione */}
+                <div className="absolute top-1/2 left-8 right-8 h-0.5 bg-emerald-100 -translate-y-1/2 hidden md:block" />
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative">
+                  {pillars.map((pillar, index) => (
+                    <div key={index} className="flex flex-col items-center text-center relative group">
+                      <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-3 relative z-10 group-hover:scale-110 group-hover:bg-emerald-100 transition-all duration-300 shadow-sm">
+                        <pillar.icon className="w-6 h-6 text-emerald-600" />
+                      </div>
+                      <h4 className="font-serif text-lg text-emerald-900 mb-1">{pillar.title}</h4>
+                      <span className="text-[10px] tracking-widest uppercase text-neutral-400 font-sans">
+                        {pillar.desc}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -300,6 +335,7 @@ const EmeraldScanner = () => {
             alt="Fashion Collection"
             className="w-full h-full object-cover brightness-[0.6]"
           />
+          <div className="absolute inset-0 bg-emerald-900/20 mix-blend-overlay" />
         </div>
 
         {/* Content */}
@@ -310,7 +346,7 @@ const EmeraldScanner = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <span className="text-emerald-300 tracking-[0.3em] uppercase text-sm font-bold mb-4 block">
+            <span className="text-emerald-300 tracking-[0.3em] uppercase text-sm font-bold mb-4 block animate-pulse">
               Shop The Look
             </span>
             <h2 className="font-serif text-5xl md:text-7xl mb-8">Indossa la Trasparenza</h2>
