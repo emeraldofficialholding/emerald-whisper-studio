@@ -1,4 +1,4 @@
-ù"use client";
+"use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -20,11 +20,10 @@ export function HoverBorderGradient({
     className?: string;
     duration?: number;
     clockwise?: boolean;
-    // 👇 QUESTE SONO LE RIGHE FONDAMENTALI AGGIUNTE PER RISOLVERE L'ERRORE 👇
+    // Definizioni aggiunte per risolvere i conflitti TypeScript con i form
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
     onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
-    // 👆 FINE AGGIUNTE 👆
   } & React.HTMLAttributes<HTMLElement>
 >) {
   const [hovered, setHovered] = useState<boolean>(false);
@@ -46,8 +45,7 @@ export function HoverBorderGradient({
     RIGHT: "radial-gradient(16.2% 41.2% at 100% 50%, #059669 0%, rgba(255, 255, 255, 0) 100%)",
   };
 
-  const highlight =
-    "radial-gradient(75% 181.16% at 50% 50%, #10b981 0%, rgba(255, 255, 255, 0) 100%)";
+  const highlight = "radial-gradient(75% 181.16% at 50% 50%, #10b981 0%, rgba(255, 255, 255, 0) 100%)";
 
   useEffect(() => {
     if (!hovered) {
@@ -65,14 +63,14 @@ export function HoverBorderGradient({
       className={cn(
         "relative flex rounded-full border content-center transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
         "bg-[#e4ffec]/30",
-        containerClassName
+        containerClassName,
       )}
       {...props}
     >
       <div
         className={cn(
           "w-auto z-10 rounded-[inherit] px-6 py-3 text-sm font-semibold tracking-widest uppercase",
-          className
+          className,
         )}
       >
         {children}
@@ -87,9 +85,7 @@ export function HoverBorderGradient({
         }}
         initial={{ background: movingMap[direction] }}
         animate={{
-          background: hovered
-            ? [movingMap[direction], highlight]
-            : movingMap[direction],
+          background: hovered ? [movingMap[direction], highlight] : movingMap[direction],
         }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
