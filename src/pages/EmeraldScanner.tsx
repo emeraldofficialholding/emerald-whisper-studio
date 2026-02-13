@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,7 +12,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Upload,
   Gem,
-  ArrowRight,
   Shirt,
   Waves,
   TestTube,
@@ -20,6 +19,8 @@ import {
   Repeat,
   ScanLine,
   CheckCircle2,
+  RefreshCw,
+  X,
 } from "lucide-react";
 import ScanningRadar from "@/components/ScanningRadar";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
@@ -29,10 +30,19 @@ const EmeraldScanner = () => {
   const [material, setMaterial] = useState("");
   const [garmentType, setGarmentType] = useState("");
   const [qualitySlider, setQualitySlider] = useState([50]);
-  const [uploading, setUploading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [score, setScore] = useState<number | null>(null);
   const [scanStatus, setScanStatus] = useState("Inizializzazione...");
+
+  // Reset function per fare una nuova scansione
+  const resetScanner = () => {
+    setScore(null);
+    setAnalyzing(false);
+    setBrand("");
+    setMaterial("");
+    setGarmentType("");
+    setQualitySlider([50]);
+  };
 
   // Funzione per simulare messaggi di analisi dinamici
   const runAnalysisSimulation = async () => {
@@ -80,24 +90,19 @@ const EmeraldScanner = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
-    // Non avviamo ancora analyzing qui per mostrare prima l'upload
+    // Start UI simulation immediately
+    await runAnalysisSimulation();
 
     const filePath = `${Date.now()}-${file.name}`;
     const { error: uploadError } = await supabase.storage.from("scanner_uploads").upload(filePath, file);
 
     if (uploadError) {
-      toast.error("Errore durante il caricamento.");
-      setUploading(false);
+      toast.error("Errore caricamento.");
+      setAnalyzing(false); // Stop if error
       return;
     }
 
     const { data: urlData } = supabase.storage.from("scanner_uploads").getPublicUrl(filePath);
-
-    setUploading(false);
-
-    // Ora avviamo l'analisi simulata
-    await runAnalysisSimulation();
 
     const mockScore = Math.floor(Math.random() * 40) + 60;
 
@@ -145,7 +150,7 @@ const EmeraldScanner = () => {
 
   return (
     <main className="bg-neutral-50 min-h-screen relative overflow-hidden font-sans">
-      {/* TEXTURE BACKGROUND (Noise Effect) */}
+      {/* TEXTURE BACKGROUND */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
         style={{
@@ -193,241 +198,222 @@ const EmeraldScanner = () => {
             </div>
           }
         >
-          {/* INTERFACCIA IPAD (Schermo) */}
-          <div className="h-full w-full overflow-y-auto bg-neutral-50 relative flex flex-col">
+          {/* INTERFACCIA IPAD (Schermo Fisso - No Scroll) */}
+          <div className="h-full w-full bg-neutral-50 relative flex flex-col overflow-hidden">
             {/* Header iPad */}
-            <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-neutral-100 p-4 flex justify-between items-center">
+            <div className="h-12 shrink-0 bg-white/80 backdrop-blur-md border-b border-neutral-100 px-4 flex justify-between items-center z-20">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-red-400" />
-                <div className="w-2 h-2 rounded-full bg-yellow-400" />
-                <div className="w-2 h-2 rounded-full bg-green-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
               </div>
-              <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest">System Ready</span>
+              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
+                {analyzing ? "PROCESSING..." : score ? "ANALYSIS COMPLETE" : "SYSTEM READY"}
+              </span>
             </div>
 
-            <div className="flex-1 p-4 md:p-10 max-w-2xl mx-auto w-full">
-              <Tabs defaultValue="manual" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-10 bg-white p-1.5 rounded-full shadow-sm border border-neutral-100">
-                  <TabsTrigger
-                    value="photo"
-                    className="rounded-full py-2.5 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
+            {/* Content Area - Flex Grow per occupare tutto lo spazio */}
+            <div className="flex-1 relative w-full h-full p-6 md:p-8 flex flex-col items-center justify-center">
+              <AnimatePresence mode="wait">
+                {/* STATE 1: INPUT (Photo or Manual) */}
+                {!analyzing && score === null && (
+                  <motion.div
+                    key="input-state"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full max-w-xl h-full flex flex-col"
                   >
-                    Carica Foto
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="manual"
-                    className="rounded-full py-2.5 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
-                  >
-                    Manuale
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="photo" className="space-y-8">
-                  <div className="relative group">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-300 to-emerald-600 rounded-3xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
-                    <div className="relative border border-neutral-200 bg-white rounded-3xl p-12 text-center overflow-hidden">
-                      {/* Effetto griglia di sfondo */}
-                      <div
-                        className="absolute inset-0 opacity-[0.05]"
-                        style={{
-                          backgroundImage: "radial-gradient(#059669 1px, transparent 1px)",
-                          backgroundSize: "20px 20px",
-                        }}
-                      ></div>
-
-                      <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner relative z-10">
-                        <Upload className="w-8 h-8 text-emerald-600" />
-                      </div>
-                      <h3 className="font-serif text-xl text-neutral-900 mb-2 relative z-10">Drop Zone</h3>
-                      <p className="text-sm text-neutral-500 font-sans mb-8 relative z-10">
-                        Trascina un'immagine o scatta una foto
-                      </p>
-
-                      <label className="cursor-pointer relative z-10">
-                        <span className="inline-flex items-center gap-2 bg-neutral-900 text-white px-8 py-3 rounded-full text-xs tracking-[0.15em] uppercase font-bold hover:bg-emerald-900 transition-all shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-0.5">
-                          <ScanLine className="w-4 h-4" /> Seleziona File
-                        </span>
-                        <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
-                      </label>
-
-                      {/* Linea di Scansione Animata (Visibile solo durante upload/analisi) */}
-                      {(uploading || analyzing) && (
-                        <motion.div
-                          className="absolute top-0 left-0 w-full h-1 bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.8)] z-0"
-                          animate={{ top: ["0%", "100%", "0%"] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                  {uploading && (
-                    <p className="text-sm text-emerald-600 font-medium text-center animate-pulse">
-                      Caricamento immagine in corso...
-                    </p>
-                  )}
-                </TabsContent>
-
-                <TabsContent value="manual" className="space-y-8">
-                  <div className="bg-white p-8 rounded-3xl border border-neutral-100 shadow-sm space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label
-                          htmlFor="brand"
-                          className="text-[10px] tracking-widest uppercase font-sans text-neutral-400 mb-2 block"
+                    <Tabs defaultValue="photo" className="w-full h-full flex flex-col">
+                      <TabsList className="grid w-full grid-cols-2 mb-6 bg-white p-1 rounded-full shadow-sm border border-neutral-100 shrink-0">
+                        <TabsTrigger
+                          value="photo"
+                          className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
                         >
-                          Brand
-                        </Label>
-                        <Input
-                          id="brand"
-                          value={brand}
-                          onChange={(e) => setBrand(e.target.value)}
-                          placeholder="Es. Gucci..."
-                          className="h-12 bg-neutral-50 border-transparent focus:bg-white focus:border-emerald-200 transition-all rounded-xl"
-                        />
-                      </div>
-                      <div>
-                        <Label
-                          htmlFor="garment"
-                          className="text-[10px] tracking-widest uppercase font-sans text-neutral-400 mb-2 block"
+                          Carica Foto
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="manual"
+                          className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
                         >
-                          Tipo Capo
-                        </Label>
-                        <Input
-                          id="garment"
-                          value={garmentType}
-                          onChange={(e) => setGarmentType(e.target.value)}
-                          placeholder="Es. Camicia..."
-                          className="h-12 bg-neutral-50 border-transparent focus:bg-white focus:border-emerald-200 transition-all rounded-xl"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <Label
-                        htmlFor="material"
-                        className="text-[10px] tracking-widest uppercase font-sans text-neutral-400 mb-2 block"
-                      >
-                        Materiale Principale
-                      </Label>
-                      <Input
-                        id="material"
-                        value={material}
-                        onChange={(e) => setMaterial(e.target.value)}
-                        placeholder="Es. 100% Cotone Organico..."
-                        className="h-12 bg-neutral-50 border-transparent focus:bg-white focus:border-emerald-200 transition-all rounded-xl"
-                      />
-                    </div>
-                    <div className="pt-4 border-t border-neutral-100">
-                      <div className="flex justify-between mb-4">
-                        <Label className="text-[10px] tracking-widest uppercase font-sans text-neutral-400">
-                          Condizione / Qualità
-                        </Label>
-                        <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
-                          {qualitySlider[0]}%
-                        </span>
-                      </div>
-                      <Slider
-                        value={qualitySlider}
-                        onValueChange={setQualitySlider}
-                        max={100}
-                        step={1}
-                        className="py-2"
-                      />
-                    </div>
-                  </div>
+                          Manuale
+                        </TabsTrigger>
+                      </TabsList>
 
-                  <div onClick={handleManualSubmit} className="pt-2">
-                    <HoverBorderGradient
-                      containerClassName={cn(
-                        "rounded-full w-full",
-                        (analyzing || !brand) && "opacity-50 pointer-events-none",
-                      )}
-                      className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-4 font-bold tracking-widest uppercase text-sm"
-                    >
-                      {analyzing ? "Avvio protocollo..." : "Calcola Impatto"}
-                    </HoverBorderGradient>
-                  </div>
-                </TabsContent>
-              </Tabs>
+                      {/* Content Container che riempie lo spazio rimanente */}
+                      <div className="flex-1 relative">
+                        {/* TAB FOTO */}
+                        <TabsContent value="photo" className="h-full mt-0">
+                          <div className="h-full border-2 border-dashed border-neutral-200 bg-white/50 rounded-3xl flex flex-col items-center justify-center relative group hover:bg-white hover:border-emerald-300 transition-all duration-300">
+                            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mb-4 shadow-inner group-hover:scale-110 transition-transform">
+                              <Upload className="w-6 h-6 text-emerald-600" />
+                            </div>
+                            <h3 className="font-serif text-lg text-neutral-900 mb-1">Drop Zone</h3>
+                            <p className="text-xs text-neutral-400 font-sans mb-6">Trascina o scatta una foto</p>
 
-              {/* FASE DI ANALISI */}
-              <AnimatePresence>
+                            <label className="cursor-pointer relative z-10">
+                              <span className="inline-flex items-center gap-2 bg-neutral-900 text-white px-6 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-bold hover:bg-emerald-900 transition-all shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-0.5">
+                                <ScanLine className="w-3 h-3" /> Seleziona File
+                              </span>
+                              <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                            </label>
+                          </div>
+                        </TabsContent>
+
+                        {/* TAB MANUALE */}
+                        <TabsContent value="manual" className="h-full mt-0">
+                          <div className="h-full bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm flex flex-col justify-between">
+                            <div className="space-y-4">
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <Label htmlFor="brand" className="text-[10px] uppercase text-neutral-400 mb-1 block">
+                                    Brand
+                                  </Label>
+                                  <Input
+                                    id="brand"
+                                    value={brand}
+                                    onChange={(e) => setBrand(e.target.value)}
+                                    placeholder="Es. Gucci"
+                                    className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg"
+                                  />
+                                </div>
+                                <div>
+                                  <Label
+                                    htmlFor="garment"
+                                    className="text-[10px] uppercase text-neutral-400 mb-1 block"
+                                  >
+                                    Tipo
+                                  </Label>
+                                  <Input
+                                    id="garment"
+                                    value={garmentType}
+                                    onChange={(e) => setGarmentType(e.target.value)}
+                                    placeholder="Es. Camicia"
+                                    className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg"
+                                  />
+                                </div>
+                              </div>
+
+                              <div>
+                                <Label htmlFor="material" className="text-[10px] uppercase text-neutral-400 mb-1 block">
+                                  Materiale
+                                </Label>
+                                <Input
+                                  id="material"
+                                  value={material}
+                                  onChange={(e) => setMaterial(e.target.value)}
+                                  placeholder="Es. 100% Cotone"
+                                  className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg"
+                                />
+                              </div>
+
+                              <div className="pt-2">
+                                <div className="flex justify-between mb-2">
+                                  <Label className="text-[10px] uppercase text-neutral-400">Qualità Percepita</Label>
+                                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                    {qualitySlider[0]}%
+                                  </span>
+                                </div>
+                                <Slider value={qualitySlider} onValueChange={setQualitySlider} max={100} step={1} />
+                              </div>
+                            </div>
+
+                            <div onClick={handleManualSubmit} className="mt-4">
+                              <HoverBorderGradient
+                                containerClassName={cn(
+                                  "rounded-full w-full",
+                                  !brand && "opacity-50 pointer-events-none",
+                                )}
+                                className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3 font-bold tracking-widest uppercase text-xs"
+                              >
+                                Avvia Analisi
+                              </HoverBorderGradient>
+                            </div>
+                          </div>
+                        </TabsContent>
+                      </div>
+                    </Tabs>
+                  </motion.div>
+                )}
+
+                {/* STATE 2: ANALYZING */}
                 {analyzing && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="mt-10 text-center"
+                    key="analyzing-state"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.1 }}
+                    className="flex flex-col items-center justify-center w-full h-full"
                   >
-                    <ScanningRadar />
+                    <div className="scale-75 md:scale-100">
+                      <ScanningRadar />
+                    </div>
                     <motion.p
                       key={scanStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="text-center text-xs text-emerald-600 mt-6 uppercase tracking-widest font-bold font-mono"
+                      className="text-center text-[10px] md:text-xs text-emerald-600 mt-8 uppercase tracking-widest font-bold font-mono"
                     >
                       {`> ${scanStatus}`}
                     </motion.p>
                   </motion.div>
                 )}
-              </AnimatePresence>
 
-              {/* RISULTATO SCORE */}
-              <AnimatePresence>
+                {/* STATE 3: RESULT */}
                 {score !== null && !analyzing && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="mt-10 relative overflow-hidden"
+                    key="result-state"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="w-full max-w-lg h-full flex flex-col items-center justify-center"
                   >
-                    <div className="bg-white border border-neutral-100 rounded-[2rem] p-10 text-center shadow-2xl relative z-10">
-                      {/* Badge Livello */}
+                    <div className="bg-white w-full border border-neutral-100 rounded-[2rem] p-6 md:p-8 text-center shadow-lg relative overflow-hidden">
+                      {/* Close/Reset Button */}
+                      <button
+                        onClick={resetScanner}
+                        className="absolute top-4 right-4 p-2 bg-neutral-50 hover:bg-neutral-100 rounded-full transition-colors"
+                      >
+                        <X className="w-4 h-4 text-neutral-400" />
+                      </button>
+
                       <div
                         className={cn(
-                          "inline-block px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6 text-white",
+                          "inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase mb-4 text-white",
                           getScoreDetails(score).bg,
                         )}
                       >
                         {getScoreDetails(score).label}
                       </div>
 
-                      <div className="relative inline-block">
+                      <div className="relative inline-block mb-4">
                         <h2
-                          className={cn("font-serif text-8xl md:text-9xl leading-none", getScoreDetails(score).color)}
+                          className={cn("font-serif text-7xl md:text-8xl leading-none", getScoreDetails(score).color)}
                         >
                           {score}
                         </h2>
-                        <span className="absolute -right-6 top-2 text-2xl text-neutral-300 font-sans">/100</span>
                       </div>
 
-                      <div className="h-1 w-full bg-neutral-100 rounded-full mt-8 mb-4 overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${score}%` }}
-                          transition={{ duration: 1, delay: 0.2 }}
-                          className={cn("h-full rounded-full", getScoreDetails(score).bg)}
-                        />
-                      </div>
-
-                      <p className="text-neutral-500 text-sm font-sans max-w-sm mx-auto leading-relaxed">
+                      <p className="text-neutral-500 text-xs font-sans max-w-xs mx-auto leading-relaxed mb-6">
                         {getScoreDetails(score).text}
                       </p>
 
-                      <div className="mt-8 flex justify-center gap-2 text-xs text-emerald-600/60 font-mono">
+                      <div className="flex justify-center gap-4 text-[10px] text-emerald-600/60 font-mono mb-6">
                         <span className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" /> Materials Verified
+                          <CheckCircle2 className="w-3 h-3" /> Materials
                         </span>
                         <span className="flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" /> Supply Chain
                         </span>
                       </div>
+
+                      <button
+                        onClick={resetScanner}
+                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-emerald-600 transition-colors"
+                      >
+                        <RefreshCw className="w-3 h-3" /> Nuova Scansione
+                      </button>
                     </div>
-                    {/* Glow effect dietro la card */}
-                    <div
-                      className={cn(
-                        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full blur-3xl opacity-20 -z-10",
-                        getScoreDetails(score).bg,
-                      )}
-                    ></div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -438,7 +424,6 @@ const EmeraldScanner = () => {
 
       {/* SEZIONE 2: LINK A SOSTENIBILITÀ (Con Roadmap 4 Pilastri) */}
       <section className="py-24 bg-white border-t border-neutral-100 relative overflow-hidden">
-        {/* Decorazione sfondo */}
         <Gem className="absolute -left-10 top-20 w-64 h-64 text-emerald-50 rotate-45 pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
@@ -492,17 +477,15 @@ const EmeraldScanner = () => {
 
       {/* SEZIONE 3: LINK A COLLEZIONI (Visual Banner) */}
       <section className="relative h-[60vh] w-full overflow-hidden flex items-center justify-center group">
-        {/* Background Image Parallax Effect */}
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/vestito%20bianco%201.jpeg"
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop"
             alt="Fashion Collection"
             className="w-full h-full object-cover brightness-[0.6] transition-transform duration-[3s] group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-emerald-950/30 mix-blend-multiply" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
