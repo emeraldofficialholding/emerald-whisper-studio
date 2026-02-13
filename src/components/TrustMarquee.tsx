@@ -27,7 +27,6 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
   const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
   const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], { clamp: false });
 
-  // Adjusted wrap logic for smoother infinite loop with longer text
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
   const isHovered = useRef(false);
@@ -40,7 +39,6 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
 
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
-    // Invert direction based on scroll velocity
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
     } else if (velocityFactor.get() > 0) {
@@ -53,7 +51,7 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
 
   return (
     <div
-      className={cn("overflow-hidden whitespace-nowrap flex flex-nowrap cursor-pointer w-[110%] -ml-[5%]", className)} // Wider width to handle rotation without cutting off
+      className={cn("overflow-hidden whitespace-nowrap flex flex-nowrap cursor-pointer w-[110%] -ml-[5%]", className)}
       onMouseEnter={() => {
         isHovered.current = true;
         setHovered(true);
@@ -69,7 +67,6 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
         animate={{ scale: hovered ? 1.02 : 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        {/* Render multiple times to ensure seamless loop on large screens */}
         {Array.from({ length: 6 }).map((_, i) => (
           <span key={i} className="block">
             {children}
@@ -82,9 +79,11 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
 
 const TrustMarquee = () => {
   return (
-    <section className="py-20 overflow-hidden bg-white relative">
-      {/* Prima Banda - Inclinata verso l'alto (Rotazione Negativa) */}
-      <div className="relative z-10 rotate-[-2deg] origin-center my-4">
+    // MODIFICA: py-10 riduce lo spazio verticale (era py-20 o pt-40).
+    // bg-neutral-50 uniforma lo sfondo alla sezione successiva.
+    <section className="py-10 overflow-hidden bg-neutral-50 relative border-b border-emerald-100/50">
+      {/* Prima Banda - Inclinata verso l'alto */}
+      <div className="relative z-10 rotate-[-2deg] origin-center my-2">
         <MarqueeBand
           baseVelocity={0.8}
           direction="left"
@@ -102,8 +101,8 @@ const TrustMarquee = () => {
         </MarqueeBand>
       </div>
 
-      {/* Seconda Banda - Inclinata verso il basso (Rotazione Positiva) */}
-      <div className="relative z-10 rotate-[2deg] origin-center -mt-8">
+      {/* Seconda Banda - Inclinata verso il basso */}
+      <div className="relative z-10 rotate-[2deg] origin-center -mt-6">
         <MarqueeBand
           baseVelocity={0.8}
           direction="right"
