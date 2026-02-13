@@ -71,7 +71,8 @@ const ChiSiamo = () => {
       <ScrollExpandMedia
         mediaType="video"
         mediaSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/HERO.mp4"
-        bgImageSrc="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop"
+        // 🟢 RIPRISTINATO IL TUO SFONDO ORIGINALE (SFONDO MINT)
+        bgImageSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/SFONDO%20MINT.png"
         title="Emerald Dress"
         scrollToExpand="Scorri per esplorare"
         textBlend
@@ -129,7 +130,7 @@ const ChiSiamo = () => {
             />
           </section>
 
-          {/* SEZIONE SOCIAL DRESS (RESTYLING COMPLETO) */}
+          {/* SEZIONE SOCIAL DRESS (RESTYLING COMPLETO - NO ROSA) */}
           <section className="py-32 w-screen relative left-1/2 -translate-x-1/2 overflow-hidden bg-white">
             {/* Background Decorativo Elegante */}
             <div className="absolute inset-0 bg-[#F9FAF9]">
@@ -189,7 +190,7 @@ const ChiSiamo = () => {
                   {/* Decorazioni di sfondo dietro il telefono */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-100/30 rounded-full blur-3xl -z-10" />
 
-                  {/* Floating Elements (Cards, non notifiche fumetto) */}
+                  {/* Floating Elements (Cards) */}
                   <motion.div
                     animate={{ y: [0, -20, 0] }}
                     transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
@@ -219,18 +220,14 @@ const ChiSiamo = () => {
 
                   {/* The Phone Device */}
                   <div className="relative w-[340px] h-[680px] bg-[#121212] rounded-[3.5rem] border-[8px] border-[#2a2a2a] shadow-2xl overflow-hidden ring-1 ring-white/10 z-10">
-                    {/* Notch */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-30"></div>
 
-                    {/* Screen Content */}
                     <div className="w-full h-full bg-white relative flex flex-col">
-                      {/* Insta Header */}
                       <div className="h-24 bg-white border-b border-neutral-100 flex items-end pb-3 px-6 justify-between z-20 shrink-0">
                         <span className="font-bold text-sm tracking-wide text-neutral-900">emeraldress_</span>
                         <Instagram className="w-5 h-5 text-neutral-900" />
                       </div>
 
-                      {/* Main Image (Full Height) */}
                       <div className="relative flex-1 overflow-hidden group">
                         <img
                           src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800&auto=format&fit=crop"
@@ -238,7 +235,6 @@ const ChiSiamo = () => {
                           className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
                         />
 
-                        {/* Gradient Overlay Bottom */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
                           <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 rounded-full border-2 border-white p-0.5">
@@ -271,7 +267,6 @@ const ChiSiamo = () => {
           <section className="bg-[#051c14] text-white py-24 w-screen relative left-1/2 -translate-x-1/2 border-t border-emerald-900/30">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 items-center justify-center text-center divide-y md:divide-y-0 md:divide-x divide-emerald-900/50">
-                {/* Colonna 1 */}
                 <div className="flex flex-col items-center gap-4 py-4 md:py-0 group cursor-default">
                   <span className="font-serif text-5xl md:text-7xl text-emerald-50 group-hover:text-emerald-400 transition-colors duration-500">
                     8K+
@@ -281,7 +276,6 @@ const ChiSiamo = () => {
                   </span>
                 </div>
 
-                {/* Colonna 2 */}
                 <div className="flex flex-col items-center gap-4 py-4 md:py-0 group cursor-default">
                   <span className="font-serif text-5xl md:text-7xl text-emerald-50 group-hover:text-emerald-400 transition-colors duration-500">
                     100%
@@ -291,7 +285,6 @@ const ChiSiamo = () => {
                   </span>
                 </div>
 
-                {/* Colonna 3 */}
                 <div className="flex flex-col items-center gap-4 py-4 md:py-0 group cursor-default">
                   <span className="font-serif text-5xl md:text-7xl text-emerald-50 group-hover:text-emerald-400 transition-colors duration-500">
                     New
