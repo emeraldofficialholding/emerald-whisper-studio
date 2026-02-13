@@ -66,32 +66,41 @@ const latestDrops = [
   },
 ];
 
-// --- COMPONENTE HERO ---
+// --- COMPONENTE HERO (VIDEO RESPONSIVE FIX) ---
 const HeroSustainability = () => (
   <section className="relative h-[85vh] w-full overflow-hidden">
     <div className="absolute inset-0">
-      <video autoPlay loop muted playsInline className="w-full h-full object-cover blur-[2px] scale-105">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        // FIX: object-cover va bene, ma aggiungiamo object-center per centrare l'azione su mobile
+        className="w-full h-full object-cover object-center blur-[1px] scale-105"
+      >
         <source
           src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/e5ce34aaaf008c541e7645ddb5233fae0c320bbf2cec96cb53fb1e40e1806251.mp4"
           type="video/mp4"
         />
       </video>
-      <div className="absolute inset-0 bg-black/30" />
+      {/* Overlay più scuro per garantire leggibilità su mobile */}
+      <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
     </div>
-    <div className="absolute inset-0 container mx-auto px-4 flex items-center">
+
+    <div className="absolute inset-0 container mx-auto px-4 flex items-center justify-center md:justify-start text-center md:text-left">
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="max-w-2xl text-white"
+        className="max-w-3xl text-white"
       >
-        <span className="text-sm md:text-base tracking-[0.3em] uppercase font-sans mb-4 block text-emerald-100">
+        <span className="text-xs md:text-sm tracking-[0.4em] uppercase font-sans mb-6 block text-emerald-200 font-bold">
           La Nostra Promessa
         </span>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none mb-6">
-          Lusso <br /> Responsabile.
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 drop-shadow-lg">
+          Lusso <br className="hidden md:block" /> Responsabile.
         </h1>
-        <p className="text-lg md:text-xl font-sans text-white/90 leading-relaxed max-w-lg border-l-2 border-emerald-400 pl-6">
+        <p className="text-base md:text-xl font-sans text-white/90 leading-relaxed max-w-lg mx-auto md:mx-0 md:border-l-2 md:border-emerald-400 md:pl-6">
           "La nostra ambizione è esportare nel mondo la bellezza della Costa Smeralda: la sua luce, la sua calma, la sua
           eleganza discreta."
         </p>
@@ -100,7 +109,7 @@ const HeroSustainability = () => (
   </section>
 );
 
-// --- BANNER NERO (DESIGN MIGLIORATO) ---
+// --- BANNER NERO ---
 const SustainabilityBanner = () => {
   const items = [
     {
@@ -122,7 +131,6 @@ const SustainabilityBanner = () => {
 
   return (
     <section className="relative py-28 bg-[#051c14] overflow-hidden border-t border-emerald-900/30">
-      {/* Sfondo Sottile */}
       <div
         className="absolute inset-0 opacity-10"
         style={{ backgroundImage: "radial-gradient(#10b981 1px, transparent 1px)", backgroundSize: "40px 40px" }}
@@ -139,12 +147,10 @@ const SustainabilityBanner = () => {
               viewport={{ once: true }}
               className="flex flex-col items-center text-center group"
             >
-              {/* Separatore verticale elegante */}
               {index !== 0 && (
                 <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-32 bg-gradient-to-b from-transparent via-emerald-800/50 to-transparent" />
               )}
 
-              {/* Icona Minimalista con Glow */}
               <div className="relative mb-8">
                 <div className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <item.icon className="w-12 h-12 text-emerald-400 relative z-10 group-hover:scale-110 transition-transform duration-500" />
@@ -163,11 +169,10 @@ const SustainabilityBanner = () => {
   );
 };
 
-// --- COMPONENTE: LATEST COLLECTION SHOWCASE (SENZA FARFALLE) ---
+// --- COMPONENTE: LATEST COLLECTION SHOWCASE ---
 const LatestCollectionShowcase = () => {
   return (
     <section className="py-32 relative bg-white overflow-hidden">
-      {/* Sfondo Decorativo Smeraldo */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-50/50 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
@@ -204,27 +209,19 @@ const LatestCollectionShowcase = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.8 }}
               whileHover={{ y: -15 }}
-              className={`relative group cursor-pointer
-                ${index === 1 ? "md:-mt-16" : ""} 
-              `}
+              className={`relative group cursor-pointer ${index === 1 ? "md:-mt-16" : ""}`}
             >
-              {/* Card Image Wrapper */}
               <div className="aspect-[3/4] overflow-hidden rounded-[2rem] shadow-2xl relative">
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500 z-10" />
-
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
                 />
-
-                {/* Price Tag Overlay */}
                 <div className="absolute top-6 right-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                   <span className="font-serif text-emerald-900 font-bold">{item.price}</span>
                 </div>
               </div>
-
-              {/* Card Details Below */}
               <div className="text-center mt-8">
                 <h3 className="font-serif text-2xl text-emerald-950 mb-2 group-hover:text-emerald-700 transition-colors">
                   {item.name}
