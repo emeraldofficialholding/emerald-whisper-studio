@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, Package, ShoppingBag, LogOut, Plus, X, Upload,
   TrendingUp, DollarSign, Archive, ChevronRight, Edit2, Trash2, Eye, EyeOff,
+  Lock,
 } from "lucide-react";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -82,9 +83,14 @@ const emptyForm = {
 // ══════════════════════════════════════════════════════════════════════════════
 export default function Admin() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [authState, setAuthState] = useState<"loading" | "unauthenticated" | "not-admin" | "admin">("loading");
   const [section, setSection] = useState<AdminSection>("dashboard");
+
+  // login form
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   // data
   const [products, setProducts] = useState<Product[]>([]);
@@ -99,23 +105,53 @@ export default function Admin() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   // ── Auth check ───────────────────────────────────────────────────────────────
-  useEffect(() => {
-    async function checkAdmin() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { navigate("/"); return; }
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (!data) { navigate("/"); return; }
-      setIsAdmin(true);
-      setLoading(false);
+  async function checkAdmin(userId: string) {
+    const { data } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (data) {
+      setAuthState("admin");
       fetchAll();
+    } else {
+      setAuthState("not-admin");
     }
-    checkAdmin();
-  }, [navigate]);
+  }
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        setAuthState("unauthenticated");
+      } else {
+        checkAdmin(session.user.id);
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        setAuthState("unauthenticated");
+      } else {
+        checkAdmin(session.user.id);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoginLoading(true);
+    setLoginError("");
+    const { error } = await supabase.auth.signInWithPassword({
+      email: loginEmail,
+      password: loginPassword,
+    });
+    if (error) {
+      setLoginError("Credenziali non valide. Riprova.");
+    }
+    setLoginLoading(false);
+  }
 
   // ── Data fetching ────────────────────────────────────────────────────────────
   async function fetchAll() {
@@ -238,14 +274,8 @@ export default function Admin() {
   }
 
   // ── Loading / auth guard ─────────────────────────────────────────────────────
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-  if (!isAdmin) return null;
+  // The iPad frame handles all states (loading, login, not-admin, admin)
+  // so we don't early-return here.
 
   // ── Sidebar nav items ────────────────────────────────────────────────────────
   const nav = [
@@ -293,6 +323,80 @@ export default function Admin() {
             boxShadow: "inset 0 1px 3px rgba(0,0,0,0.15)",
           }}
         >
+          {/* ── Loading state ── */}
+          {authState === "loading" && (
+            <div className="flex-1 flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
+
+          {/* ── Login form ── */}
+          {(authState === "unauthenticated" || authState === "not-admin") && (
+            <div className="flex-1 flex items-center justify-center p-8">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="w-full max-w-sm"
+              >
+                {/* Logo */}
+                <div className="text-center mb-10">
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-950 flex items-center justify-center mx-auto mb-5">
+                    <Lock className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 style={{ fontFamily: "var(--font-serif)" }} className="text-2xl font-semibold text-neutral-900">
+                    Accesso Riservato
+                  </h2>
+                  <p className="text-sm text-neutral-400 mt-1">Inserisci le tue credenziali per continuare</p>
+                </div>
+
+                <form onSubmit={handleLogin} className="space-y-4">
+                  {authState === "not-admin" && (
+                    <div className="bg-amber-50 border border-amber-200 text-amber-800 text-xs rounded-xl px-4 py-3">
+                      Account non autorizzato per l'accesso admin.
+                    </div>
+                  )}
+                  {loginError && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl px-4 py-3">
+                      {loginError}
+                    </div>
+                  )}
+                  <div>
+                    <label className="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Email</label>
+                    <Input
+                      type="email"
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      placeholder="admin@emeraldress.com"
+                      required
+                      className="rounded-xl border-neutral-200 focus:ring-emerald-600 bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-neutral-500 uppercase tracking-wider mb-1.5 block">Password</label>
+                    <Input
+                      type="password"
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      placeholder="••••••••"
+                      required
+                      className="rounded-xl border-neutral-200 focus:ring-emerald-600 bg-white"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    disabled={loginLoading}
+                    className="w-full bg-emerald-950 hover:bg-emerald-900 text-white rounded-xl h-11 mt-2"
+                  >
+                    {loginLoading ? "Accesso in corso..." : "Accedi alla Dashboard"}
+                  </Button>
+                </form>
+              </motion.div>
+            </div>
+          )}
+
+          {/* ── Admin dashboard (sidebar + content) ── */}
+          {authState === "admin" && (<>
           {/* ── Sidebar ── */}
           <aside className="w-16 lg:w-56 bg-white border-r border-neutral-100 flex flex-col py-6 shrink-0">
             {/* Brand */}
@@ -624,6 +728,7 @@ export default function Admin() {
 
             </AnimatePresence>
           </main>
+          </>)}
         </div>
 
         {/* Bottom home indicator */}
