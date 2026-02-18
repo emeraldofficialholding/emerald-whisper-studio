@@ -57,7 +57,7 @@ const Navbar = () => {
 
           <div className="flex items-center gap-4">
             <button className="hover:opacity-70 transition-opacity"><Search className="w-5 h-5" /></button>
-            <button className="hover:opacity-70 transition-opacity"><User className="w-5 h-5" /></button>
+            <Link to="/admin" className="hover:opacity-70 transition-opacity"><User className="w-5 h-5" /></Link>
             <button className="hover:opacity-70 transition-opacity relative" onClick={() => setIsOpen(true)}>
               <ShoppingBag className="w-5 h-5" />
               {totalItems > 0 && (
