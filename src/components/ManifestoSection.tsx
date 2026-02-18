@@ -185,7 +185,7 @@ const ManifestoSection = () => {
                 viewport={{ once: true }}
               >
                 <img
-                  src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_62etyv62etyv62et%20-%20Modificata.png"
+                  src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(11).png"
                   alt="Fashion Editorial"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                 />
