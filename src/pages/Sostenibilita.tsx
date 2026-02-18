@@ -66,16 +66,17 @@ const latestDrops = [
   },
 ];
 
-// --- COMPONENTE HERO (IMAGE VERSION) ---
+// --- COMPONENTE HERO (VIDEO RESTORED) ---
 const HeroSustainability = () => (
   <section className="relative h-[85vh] w-full overflow-hidden">
     <div className="absolute inset-0">
-      <img
-        src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/asset.jpg"
-        alt="Emeraldress Sostenibilità"
-        className="w-full h-full object-cover object-center blur-[1px] scale-105"
-      />
-      <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
+      <video autoPlay loop muted playsInline className="w-full h-full object-cover object-center blur-[1px] scale-105">
+        <source
+          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/HERO.mov"
+          type="video/mp4"
+        />
+      </video>
+      <div className="absolute inset-0 bg-black/30" />
     </div>
     <div className="absolute inset-0 container mx-auto px-4 flex items-center justify-center md:justify-start text-center md:text-left">
       <motion.div
