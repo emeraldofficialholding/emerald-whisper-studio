@@ -16,8 +16,18 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [activeImage, setActiveImage] = useState(0);
 
-  if (isLoading) return <div className="pt-24"><ButterflyLoader /></div>;
-  if (!product) return <div className="pt-24 text-center py-20"><p className="text-muted-foreground">Prodotto non trovato.</p></div>;
+  if (isLoading)
+    return (
+      <div className="pt-24">
+        <ButterflyLoader />
+      </div>
+    );
+  if (!product)
+    return (
+      <div className="pt-24 text-center py-20">
+        <p className="text-muted-foreground">Prodotto non trovato.</p>
+      </div>
+    );
 
   const sizes = product.sizes || ["S", "M", "L"];
 
@@ -37,11 +47,7 @@ const ProductDetail = () => {
     <main className="pt-24 pb-16">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
             <div className="aspect-[3/4] bg-muted overflow-hidden mb-4">
               <ImageFallback
                 src={product.images[activeImage]}
@@ -74,9 +80,7 @@ const ProductDetail = () => {
           >
             <h1 className="font-serif text-2xl md:text-3xl mb-2">{product.name}</h1>
             <p className="text-xl font-sans mb-6">€{Number(product.price).toFixed(2)}</p>
-            <p className="text-muted-foreground text-sm leading-relaxed font-sans mb-8">
-              {product.description}
-            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed font-sans mb-8">{product.description}</p>
 
             <div className="mb-8">
               <p className="text-xs tracking-[0.15em] uppercase font-sans mb-3">Taglia</p>
@@ -97,12 +101,7 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <Button
-              size="lg"
-              disabled={!selectedSize}
-              onClick={handleAddToCart}
-              className="w-full mb-8"
-            >
+            <Button size="lg" disabled={!selectedSize} onClick={handleAddToCart} className="w-full mb-8">
               {selectedSize ? "Aggiungi al carrello" : "Seleziona una taglia"}
             </Button>
 
