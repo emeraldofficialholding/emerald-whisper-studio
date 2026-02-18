@@ -110,11 +110,11 @@ const ChiSiamo = () => {
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-30"></div>
               <div className="relative z-10">
                 <h3 className="font-serif text-2xl md:text-5xl text-emerald-950 leading-tight mb-10">
-                  "Non volevamo creare solo vestiti. Volevamo creare un modo per sentirsi belle facendo la cosa giusta.
-                  Il vero lusso oggi è la consapevolezza."
+                  "Non volevo creare solo vestiti. Volevo creare un modo per sentirsi belle facendo la cosa giusta. Il
+                  vero lusso oggi è la consapevolezza."
                 </h3>
                 <div className="flex justify-center items-center gap-3 text-emerald-800">
-                  <span className="font-serif italic text-3xl md:text-4xl transform -rotate-3">Sofia & Marco</span>
+                  <span className="font-serif italic text-3xl md:text-4xl transform -rotate-3">Noemy</span>
                   <PenTool className="w-5 h-5 opacity-70" />
                 </div>
               </div>
