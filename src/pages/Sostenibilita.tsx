@@ -79,8 +79,8 @@ const HeroSustainability = () => (
         className="w-full h-full object-cover object-center blur-[1px] scale-105"
       >
         <source
-          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Video%20asset.mov"
-          type="video/mp4"
+          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/asset.jpg"
+          type="image"
         />
       </video>
       {/* Overlay più scuro per garantire leggibilità su mobile */}
