@@ -66,16 +66,23 @@ const latestDrops = [
   },
 ];
 
-// --- COMPONENTE HERO (IMAGE VERSION) ---
+// --- COMPONENTE HERO (VIDEO RESPONSIVE FIX) ---
 const HeroSustainability = () => (
   <section className="relative h-[85vh] w-full overflow-hidden">
     <div className="absolute inset-0">
-      <img
-        src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/asset.jpg"
-        alt="Emeraldress Sostenibilità"
-        // Manteniamo le stesse classi per garantire che l'immagine copra tutto e sia centrata su mobile
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        // FIX: object-cover va bene, ma aggiungiamo object-center per centrare l'azione su mobile
         className="w-full h-full object-cover object-center blur-[1px] scale-105"
-      />
+      >
+        <source
+          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Video%20asset.mov"
+          type="video/mp4"
+        />
+      </video>
       {/* Overlay più scuro per garantire leggibilità su mobile */}
       <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
     </div>
