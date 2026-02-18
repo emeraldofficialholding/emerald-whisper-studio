@@ -303,40 +303,4 @@ const Sostenibilita = () => {
                         </div>
                       </motion.div>
 
-                      <motion.div className="text-center lg:text-left py-6 px-4 md:py-10 md:px-6">
-                        <h2 className="text-[5rem] md:text-[6rem] lg:text-[10rem] leading-none font-serif text-emerald-100 font-medium mb-4 md:mb-6 md:-ml-2 select-none">
-                          {slide.percentage}
-                        </h2>
-                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-emerald-950 mb-6 relative z-10 -mt-10 md:-mt-12 lg:-mt-20">
-                          {slide.title}
-                        </h3>
-                        <div className="w-24 md:w-32 h-1 bg-emerald-500 mx-auto lg:mx-0 mb-6 md:mb-10"></div>
-                        <p className="text-neutral-600 font-sans text-lg md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0">
-                          {slide.description}
-                        </p>
-                      </motion.div>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            {/* Navigazione: Nascosta su Mobile, Piccola ed elegante su Desktop */}
-            <div className="hidden md:block">
-              <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-emerald-50 text-emerald-900 border-emerald-100 h-12 w-12 rounded-full shadow-lg" />
-              <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-emerald-50 text-emerald-900 border-emerald-100 h-12 w-12 rounded-full shadow-lg" />
-            </div>
-          </Carousel>
-        </div>
-      </section>
-
-      {/* 3. BANNER NERO MIGLIORATO */}
-      <SustainabilityBanner />
-
-      {/* 4. COLLEZIONI (ex Nuovi Arrivi) */}
-      <LatestCollectionShowcase />
-    </main>
-  );
-};
-
-export default Sostenibilita;
+                      <motion.div className="text-
