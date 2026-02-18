@@ -66,7 +66,7 @@ const latestDrops = [
   },
 ];
 
-// --- COMPONENTE HERO ---
+// --- COMPONENTE HERO (IMAGE VERSION) ---
 const HeroSustainability = () => (
   <section className="relative h-[85vh] w-full overflow-hidden">
     <div className="absolute inset-0">
@@ -75,22 +75,22 @@ const HeroSustainability = () => (
         alt="Emeraldress Sostenibilità"
         className="w-full h-full object-cover object-center blur-[1px] scale-105"
       />
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
     </div>
-    <div className="absolute inset-0 container mx-auto px-4 flex items-center">
+    <div className="absolute inset-0 container mx-auto px-4 flex items-center justify-center md:justify-start text-center md:text-left">
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="max-w-2xl text-white"
+        className="max-w-3xl text-white"
       >
-        <span className="text-sm md:text-base tracking-[0.3em] uppercase font-sans mb-4 block text-emerald-100">
+        <span className="text-xs md:text-sm tracking-[0.4em] uppercase font-sans mb-6 block text-emerald-200 font-bold">
           La Nostra Promessa
         </span>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none mb-6">
-          Lusso <br /> Responsabile.
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 drop-shadow-lg">
+          Lusso <br className="hidden md:block" /> Responsabile.
         </h1>
-        <p className="text-lg md:text-xl font-sans text-white/90 leading-relaxed max-w-lg border-l-2 border-emerald-400 pl-6">
+        <p className="text-base md:text-xl font-sans text-white/90 leading-relaxed max-w-lg mx-auto md:mx-0 md:border-l-2 md:border-emerald-400 md:pl-6">
           "La nostra ambizione è esportare nel mondo la bellezza della Costa Smeralda: la sua luce, la sua calma, la sua
           eleganza discreta."
         </p>
@@ -303,4 +303,40 @@ const Sostenibilita = () => {
                         </div>
                       </motion.div>
 
-                      <motion.div className="text-
+                      <motion.div className="text-center lg:text-left py-6 px-4 md:py-10 md:px-6">
+                        <h2 className="text-[5rem] md:text-[6rem] lg:text-[10rem] leading-none font-serif text-emerald-100 font-medium mb-4 md:mb-6 md:-ml-2 select-none">
+                          {slide.percentage}
+                        </h2>
+                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-emerald-950 mb-6 relative z-10 -mt-10 md:-mt-12 lg:-mt-20">
+                          {slide.title}
+                        </h3>
+                        <div className="w-24 md:w-32 h-1 bg-emerald-500 mx-auto lg:mx-0 mb-6 md:mb-10"></div>
+                        <p className="text-neutral-600 font-sans text-lg md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0">
+                          {slide.description}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Navigazione: Nascosta su Mobile, Piccola ed elegante su Desktop */}
+            <div className="hidden md:block">
+              <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-emerald-50 text-emerald-900 border-emerald-100 h-12 w-12 rounded-full shadow-lg" />
+              <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-emerald-50 text-emerald-900 border-emerald-100 h-12 w-12 rounded-full shadow-lg" />
+            </div>
+          </Carousel>
+        </div>
+      </section>
+
+      {/* 3. BANNER NERO MIGLIORATO */}
+      <SustainabilityBanner />
+
+      {/* 4. COLLEZIONI (ex Nuovi Arrivi) */}
+      <LatestCollectionShowcase />
+    </main>
+  );
+};
+
+export default Sostenibilita;
