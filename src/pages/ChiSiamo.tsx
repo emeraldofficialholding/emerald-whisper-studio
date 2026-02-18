@@ -31,7 +31,7 @@ const timelineData = [
             className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
           />
           <img
-            src="https://images.unsplash.com/photo-1516834474-48c0abc2a902?q=80&w=2073&auto=format&fit=crop"
+            src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/asset.jpg"
             alt="Primi bozzetti"
             className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
           />
@@ -50,7 +50,7 @@ const timelineData = [
           ricerca di un benessere che parte dal tessuto e arriva all'anima.
         </p>
         <img
-          src="https://images.unsplash.com/photo-1532667449560-72a95c8d381b?q=80&w=2070&auto=format&fit=crop"
+          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/dettaglio.jpeg"
           alt="Ricerca tessuti sani"
           className="rounded-lg object-cover h-40 md:h-64 w-full shadow-md"
         />
