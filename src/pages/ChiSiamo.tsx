@@ -123,7 +123,7 @@ const ChiSiamo = () => {
               <h2 className="font-serif text-5xl md:text-6xl">Atelier Italiano</h2>
             </div>
             <img
-              src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2000&auto=format&fit=crop"
+              src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/BIANCO%20FIOCCO/BIANCO%20FIOCCO(1).jpeg"
               alt="Atelier"
               className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[2000ms]"
             />
