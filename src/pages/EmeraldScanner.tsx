@@ -20,8 +20,8 @@ import {
   ScanLine,
   CheckCircle2,
   RefreshCw,
-  X,
-} from "lucide-react";
+  X, ChartNoAxesCombined } from
+"lucide-react";
 import ScanningRadar from "@/components/ScanningRadar";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
@@ -50,12 +50,12 @@ const EmeraldScanner = () => {
     setScore(null);
 
     const steps = [
-      "Scansione fibre tessili...",
-      "Analisi ciclo di vita...",
-      "Calcolo impronta carbonica...",
-      "Verifica certificazioni etiche...",
-      "Generazione Emerald Score...",
-    ];
+    "Scansione fibre tessili...",
+    "Analisi ciclo di vita...",
+    "Calcolo impronta carbonica...",
+    "Verifica certificazioni etiche...",
+    "Generazione Emerald Score..."];
+
 
     for (const step of steps) {
       setScanStatus(step);
@@ -73,7 +73,7 @@ const EmeraldScanner = () => {
       material,
       garment_type: garmentType,
       input_type: "manual",
-      sustainability_score: mockScore,
+      sustainability_score: mockScore
     });
 
     setAnalyzing(false);
@@ -109,7 +109,7 @@ const EmeraldScanner = () => {
     await supabase.from("scanner_requests").insert({
       image_url: urlData.publicUrl,
       input_type: "photo",
-      sustainability_score: mockScore,
+      sustainability_score: mockScore
     });
 
     setAnalyzing(false);
@@ -120,33 +120,33 @@ const EmeraldScanner = () => {
   // Helper per determinare il livello e colore
   const getScoreDetails = (s: number) => {
     if (s >= 80)
-      return {
-        label: "ECCELLENTE",
-        color: "text-emerald-600",
-        bg: "bg-emerald-500",
-        text: "Questo capo rappresenta il futuro della moda.",
-      };
+    return {
+      label: "ECCELLENTE",
+      color: "text-emerald-600",
+      bg: "bg-emerald-500",
+      text: "Questo capo rappresenta il futuro della moda."
+    };
     if (s >= 60)
-      return {
-        label: "BUONO",
-        color: "text-emerald-500",
-        bg: "bg-emerald-400",
-        text: "Buone pratiche di sostenibilità rilevate.",
-      };
+    return {
+      label: "BUONO",
+      color: "text-emerald-500",
+      bg: "bg-emerald-400",
+      text: "Buone pratiche di sostenibilità rilevate."
+    };
     return {
       label: "MIGLIORABILE",
       color: "text-orange-500",
       bg: "bg-orange-400",
-      text: "Impatto ambientale significativo.",
+      text: "Impatto ambientale significativo."
     };
   };
 
   const pillars = [
-    { title: "Recupero", icon: Waves, desc: "Reti & Plastica" },
-    { title: "Rigenerazione", icon: TestTube, desc: "Filo Puro" },
-    { title: "Creazione", icon: Scissors, desc: "Made in Italy" },
-    { title: "Circolarità", icon: Repeat, desc: "Riuso Infinito" },
-  ];
+  { title: "Recupero", icon: Waves, desc: "Reti & Plastica" },
+  { title: "Rigenerazione", icon: TestTube, desc: "Filo Puro" },
+  { title: "Creazione", icon: Scissors, desc: "Made in Italy" },
+  { title: "Circolarità", icon: Repeat, desc: "Riuso Infinito" }];
+
 
   return (
     <main className="bg-neutral-50 min-h-screen relative overflow-hidden font-sans">
@@ -154,9 +154,9 @@ const EmeraldScanner = () => {
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      ></div>
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+        }}>
+      </div>
 
       {/* DECORAZIONI FLUTTUANTI */}
       <div className="absolute top-20 left-10 opacity-30 pointer-events-none animate-pulse z-0">
@@ -170,16 +170,16 @@ const EmeraldScanner = () => {
       <div className="pt-16 relative z-10">
         <ContainerScroll
           titleComponent={
-            <div className="flex flex-col items-center gap-6 mb-16">
+          <div className="flex flex-col items-center gap-6 mb-16">
               <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: "spring" }}
-                className="relative group cursor-default"
-              >
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.8, type: "spring" }}
+              className="relative group cursor-default">
+
                 <div className="absolute inset-0 bg-emerald-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
                 <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-900 to-emerald-600 flex items-center justify-center shadow-2xl border border-emerald-400/30 relative z-10">
-                  <Gem className="w-12 h-12 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
+                  <ChartNoAxesCombined className="w-12 h-12 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
                 </div>
               </motion.div>
 
@@ -196,8 +196,8 @@ const EmeraldScanner = () => {
                 </p>
               </div>
             </div>
-          }
-        >
+          }>
+
           {/* INTERFACCIA IPAD (Schermo Fisso - No Scroll) */}
           <div className="h-full w-full bg-neutral-50 relative flex flex-col overflow-hidden">
             {/* Header iPad */}
@@ -216,27 +216,27 @@ const EmeraldScanner = () => {
             <div className="flex-1 relative w-full h-full p-6 md:p-8 flex flex-col items-center justify-center">
               <AnimatePresence mode="wait">
                 {/* STATE 1: INPUT (Photo or Manual) */}
-                {!analyzing && score === null && (
-                  <motion.div
-                    key="input-state"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-full max-w-xl h-full flex flex-col"
-                  >
+                {!analyzing && score === null &&
+                <motion.div
+                  key="input-state"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full max-w-xl h-full flex flex-col">
+
                     <Tabs defaultValue="photo" className="w-full h-full flex flex-col">
                       <TabsList className="grid w-full grid-cols-2 mb-6 bg-white p-1 rounded-full shadow-sm border border-neutral-100 shrink-0">
                         <TabsTrigger
-                          value="photo"
-                          className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
-                        >
+                        value="photo"
+                        className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all">
+
                           Carica Foto
                         </TabsTrigger>
                         <TabsTrigger
-                          value="manual"
-                          className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
-                        >
+                        value="manual"
+                        className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all">
+
                           Manuale
                         </TabsTrigger>
                       </TabsList>
@@ -271,27 +271,27 @@ const EmeraldScanner = () => {
                                     Brand
                                   </Label>
                                   <Input
-                                    id="brand"
-                                    value={brand}
-                                    onChange={(e) => setBrand(e.target.value)}
-                                    placeholder="Es. Gucci"
-                                    className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg"
-                                  />
+                                  id="brand"
+                                  value={brand}
+                                  onChange={(e) => setBrand(e.target.value)}
+                                  placeholder="Es. Gucci"
+                                  className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+
                                 </div>
                                 <div>
                                   <Label
-                                    htmlFor="garment"
-                                    className="text-[10px] uppercase text-neutral-400 mb-1 block"
-                                  >
+                                  htmlFor="garment"
+                                  className="text-[10px] uppercase text-neutral-400 mb-1 block">
+
                                     Tipo
                                   </Label>
                                   <Input
-                                    id="garment"
-                                    value={garmentType}
-                                    onChange={(e) => setGarmentType(e.target.value)}
-                                    placeholder="Es. Camicia"
-                                    className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg"
-                                  />
+                                  id="garment"
+                                  value={garmentType}
+                                  onChange={(e) => setGarmentType(e.target.value)}
+                                  placeholder="Es. Camicia"
+                                  className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+
                                 </div>
                               </div>
 
@@ -300,12 +300,12 @@ const EmeraldScanner = () => {
                                   Materiale
                                 </Label>
                                 <Input
-                                  id="material"
-                                  value={material}
-                                  onChange={(e) => setMaterial(e.target.value)}
-                                  placeholder="Es. 100% Cotone"
-                                  className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg"
-                                />
+                                id="material"
+                                value={material}
+                                onChange={(e) => setMaterial(e.target.value)}
+                                placeholder="Es. 100% Cotone"
+                                className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+
                               </div>
 
                               <div className="pt-2">
@@ -321,12 +321,12 @@ const EmeraldScanner = () => {
 
                             <div onClick={handleManualSubmit} className="mt-4">
                               <HoverBorderGradient
-                                containerClassName={cn(
-                                  "rounded-full w-full",
-                                  !brand && "opacity-50 pointer-events-none",
-                                )}
-                                className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3 font-bold tracking-widest uppercase text-xs"
-                              >
+                              containerClassName={cn(
+                                "rounded-full w-full",
+                                !brand && "opacity-50 pointer-events-none"
+                              )}
+                              className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3 font-bold tracking-widest uppercase text-xs">
+
                                 Avvia Analisi
                               </HoverBorderGradient>
                             </div>
@@ -335,61 +335,61 @@ const EmeraldScanner = () => {
                       </div>
                     </Tabs>
                   </motion.div>
-                )}
+                }
 
                 {/* STATE 2: ANALYZING */}
-                {analyzing && (
-                  <motion.div
-                    key="analyzing-state"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.1 }}
-                    className="flex flex-col items-center justify-center w-full h-full"
-                  >
+                {analyzing &&
+                <motion.div
+                  key="analyzing-state"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.1 }}
+                  className="flex flex-col items-center justify-center w-full h-full">
+
                     <div className="scale-75 md:scale-100">
                       <ScanningRadar />
                     </div>
                     <motion.p
-                      key={scanStatus}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-center text-[10px] md:text-xs text-emerald-600 mt-8 uppercase tracking-widest font-bold font-mono"
-                    >
+                    key={scanStatus}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center text-[10px] md:text-xs text-emerald-600 mt-8 uppercase tracking-widest font-bold font-mono">
+
                       {`> ${scanStatus}`}
                     </motion.p>
                   </motion.div>
-                )}
+                }
 
                 {/* STATE 3: RESULT */}
-                {score !== null && !analyzing && (
-                  <motion.div
-                    key="result-state"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="w-full max-w-lg h-full flex flex-col items-center justify-center"
-                  >
+                {score !== null && !analyzing &&
+                <motion.div
+                  key="result-state"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="w-full max-w-lg h-full flex flex-col items-center justify-center">
+
                     <div className="bg-white w-full border border-neutral-100 rounded-[2rem] p-6 md:p-8 text-center shadow-lg relative overflow-hidden">
                       {/* Close/Reset Button */}
                       <button
-                        onClick={resetScanner}
-                        className="absolute top-4 right-4 p-2 bg-neutral-50 hover:bg-neutral-100 rounded-full transition-colors"
-                      >
+                      onClick={resetScanner}
+                      className="absolute top-4 right-4 p-2 bg-neutral-50 hover:bg-neutral-100 rounded-full transition-colors">
+
                         <X className="w-4 h-4 text-neutral-400" />
                       </button>
 
                       <div
-                        className={cn(
-                          "inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase mb-4 text-white",
-                          getScoreDetails(score).bg,
-                        )}
-                      >
+                      className={cn(
+                        "inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase mb-4 text-white",
+                        getScoreDetails(score).bg
+                      )}>
+
                         {getScoreDetails(score).label}
                       </div>
 
                       <div className="relative inline-block mb-4">
                         <h2
-                          className={cn("font-serif text-7xl md:text-8xl leading-none", getScoreDetails(score).color)}
-                        >
+                        className={cn("font-serif text-7xl md:text-8xl leading-none", getScoreDetails(score).color)}>
+
                           {score}
                         </h2>
                       </div>
@@ -408,14 +408,14 @@ const EmeraldScanner = () => {
                       </div>
 
                       <button
-                        onClick={resetScanner}
-                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-emerald-600 transition-colors"
-                      >
+                      onClick={resetScanner}
+                      className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-emerald-600 transition-colors">
+
                         <RefreshCw className="w-3 h-3" /> Nuova Scansione
                       </button>
                     </div>
                   </motion.div>
-                )}
+                }
               </AnimatePresence>
             </div>
           </div>
@@ -438,8 +438,8 @@ const EmeraldScanner = () => {
                 <Link to="/sostenibilita">
                   <HoverBorderGradient
                     containerClassName="rounded-full"
-                    className="bg-white text-emerald-950 flex items-center gap-2 font-medium"
-                  >
+                    className="bg-white text-emerald-950 flex items-center gap-2 font-medium">
+
                     <Gem className="w-4 h-4" />
                     APPROFONDISCI I PILASTRI
                   </HoverBorderGradient>
@@ -454,12 +454,12 @@ const EmeraldScanner = () => {
                 <div className="absolute top-[3.25rem] left-12 right-12 h-0.5 border-t-2 border-dashed border-emerald-200 hidden md:block" />
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-4 relative">
-                  {pillars.map((pillar, index) => (
-                    <div key={index} className="flex flex-col items-center text-center relative group cursor-default">
+                  {pillars.map((pillar, index) =>
+                  <div key={index} className="flex flex-col items-center text-center relative group cursor-default">
                       <motion.div
-                        whileHover={{ scale: 1.1, rotate: 10, backgroundColor: "#fff" }}
-                        className="w-16 h-16 rounded-full bg-white border-2 border-emerald-100 flex items-center justify-center mb-4 relative z-10 shadow-sm transition-colors duration-300"
-                      >
+                      whileHover={{ scale: 1.1, rotate: 10, backgroundColor: "#fff" }}
+                      className="w-16 h-16 rounded-full bg-white border-2 border-emerald-100 flex items-center justify-center mb-4 relative z-10 shadow-sm transition-colors duration-300">
+
                         <pillar.icon className="w-7 h-7 text-emerald-600" />
                       </motion.div>
                       <h4 className="font-serif text-lg text-emerald-950 mb-1">{pillar.title}</h4>
@@ -467,7 +467,7 @@ const EmeraldScanner = () => {
                         {pillar.desc}
                       </span>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             </div>
@@ -481,8 +481,8 @@ const EmeraldScanner = () => {
           <img
             src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(6).png"
             alt="Fashion Collection"
-            className="w-full h-full object-cover brightness-[0.6] transition-transform duration-[3s] group-hover:scale-105"
-          />
+            className="w-full h-full object-cover brightness-[0.6] transition-transform duration-[3s] group-hover:scale-105" />
+
           <div className="absolute inset-0 bg-emerald-950/30 mix-blend-multiply" />
         </div>
 
@@ -491,8 +491,8 @@ const EmeraldScanner = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
+            viewport={{ once: true }}>
+
             <div className="w-20 h-1 bg-emerald-400 mx-auto mb-8 rounded-full shadow-[0_0_10px_#34d399]" />
             <span className="text-emerald-200 tracking-[0.4em] uppercase text-xs font-bold mb-6 block">
               Shop The Look
@@ -502,8 +502,8 @@ const EmeraldScanner = () => {
               <Link to="/collezioni">
                 <HoverBorderGradient
                   containerClassName="rounded-full"
-                  className="bg-[#e4ffec] text-emerald-950 flex items-center gap-3 px-10 py-5 font-bold tracking-widest uppercase text-sm"
-                >
+                  className="bg-[#e4ffec] text-emerald-950 flex items-center gap-3 px-10 py-5 font-bold tracking-widest uppercase text-sm">
+
                   Scopri la Collezione
                   <Shirt className="w-4 h-4" />
                 </HoverBorderGradient>
@@ -512,8 +512,8 @@ const EmeraldScanner = () => {
           </motion.div>
         </div>
       </section>
-    </main>
-  );
+    </main>);
+
 };
 
 export default EmeraldScanner;
