@@ -12,7 +12,7 @@ const particles = Array.from({ length: 18 }, (_, i) => ({
   y: Math.random() * 100,
   size: 3 + Math.random() * 5,
   delay: Math.random() * 4,
-  duration: 2.5 + Math.random() * 3,
+  duration: 2.5 + Math.random() * 3
 }));
 
 export default function ComingSoon() {
@@ -36,7 +36,7 @@ export default function ComingSoon() {
         full_name: formData.nome,
         email: formData.email,
         phone: formData.telefono,
-        source: "coming_soon",
+        source: "coming_soon"
       }]);
       if (error) throw error;
       toast.success("Benvenuto nell'Inner Circle di Emeraldress.");
@@ -52,30 +52,30 @@ export default function ComingSoon() {
     <div className="min-h-screen w-full bg-[#e4ffec] flex flex-col items-center justify-center relative overflow-hidden px-4">
 
       {/* ── Shimmer particles ─────────────────────────────────────────────── */}
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            background: "radial-gradient(circle, #10b981 0%, #6ee7b7 50%, transparent 100%)",
-          }}
-          animate={{
-            opacity: [0, 0.8, 0],
-            scale: [0.5, 1.5, 0.5],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
+      {particles.map((p) =>
+      <motion.div
+        key={p.id}
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          left: `${p.x}%`,
+          top: `${p.y}%`,
+          width: p.size,
+          height: p.size,
+          background: "radial-gradient(circle, #10b981 0%, #6ee7b7 50%, transparent 100%)"
+        }}
+        animate={{
+          opacity: [0, 0.8, 0],
+          scale: [0.5, 1.5, 0.5],
+          y: [0, -20, 0]
+        }}
+        transition={{
+          duration: p.duration,
+          delay: p.delay,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }} />
+
+      )}
 
       {/* ── Radial glow center ────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none">
@@ -91,8 +91,8 @@ export default function ComingSoon() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="flex flex-col items-center mb-12"
-        >
+          className="flex flex-col items-center mb-12">
+
           <div className="w-16 h-16 rounded-full bg-emerald-900 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
             <Leaf className="w-8 h-8 text-[#e4ffec]" />
           </div>
@@ -106,8 +106,8 @@ export default function ComingSoon() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2 }}
-          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-emerald-950 leading-tight tracking-tight mb-6"
-        >
+          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-emerald-950 leading-tight tracking-tight mb-6">
+
           L'eleganza <br />
           <span className="italic text-emerald-700 relative inline-block">
             ha bisogno di tempo
@@ -117,8 +117,8 @@ export default function ComingSoon() {
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1.5, delay: 1.2 }}
-              style={{ width: "100%" }}
-            />
+              style={{ width: "100%" }} />
+
           </span>
         </motion.h1>
 
@@ -126,8 +126,8 @@ export default function ComingSoon() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-emerald-800/70 font-sans text-base sm:text-lg tracking-wide mb-16 max-w-md"
-        >
+          className="text-emerald-800/70 font-sans text-base sm:text-lg tracking-wide mb-16 max-w-md">
+
           Un tocco di smeraldo sta per arrivare. Lascia i tuoi dati per essere
           il primo a scoprirlo.
         </motion.p>
@@ -137,8 +137,8 @@ export default function ComingSoon() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
-          className="w-full"
-        >
+          className="w-full">
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
 
@@ -152,12 +152,12 @@ export default function ComingSoon() {
                   onChange={handleInputChange}
                   className="block w-full bg-transparent border-b border-emerald-900/20 py-4 text-emerald-950 text-base placeholder-transparent focus:border-emerald-700 focus:outline-none transition-colors peer"
                   placeholder="Nome Completo"
-                  required
-                />
+                  required />
+
                 <label
                   htmlFor="cs-nome"
-                  className="absolute left-0 -top-3.5 text-emerald-700 text-xs transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-emerald-800/60 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-emerald-700 peer-focus:text-xs uppercase tracking-widest"
-                >
+                  className="absolute left-0 -top-3.5 text-emerald-700 text-xs transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-emerald-800/60 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-emerald-700 peer-focus:text-xs uppercase tracking-widest">
+
                   Nome Completo
                 </label>
               </div>
@@ -172,12 +172,12 @@ export default function ComingSoon() {
                   onChange={handleInputChange}
                   className="block w-full bg-transparent border-b border-emerald-900/20 py-4 text-emerald-950 text-base placeholder-transparent focus:border-emerald-700 focus:outline-none transition-colors peer"
                   placeholder="Email"
-                  required
-                />
+                  required />
+
                 <label
                   htmlFor="cs-email"
-                  className="absolute left-0 -top-3.5 text-emerald-700 text-xs transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-emerald-800/60 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-emerald-700 peer-focus:text-xs uppercase tracking-widest"
-                >
+                  className="absolute left-0 -top-3.5 text-emerald-700 text-xs transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-emerald-800/60 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-emerald-700 peer-focus:text-xs uppercase tracking-widest">
+
                   Indirizzo Email
                 </label>
               </div>
@@ -192,12 +192,12 @@ export default function ComingSoon() {
                   onChange={handleInputChange}
                   className="block w-full bg-transparent border-b border-emerald-900/20 py-4 text-emerald-950 text-base placeholder-transparent focus:border-emerald-700 focus:outline-none transition-colors peer"
                   placeholder="Telefono"
-                  required
-                />
+                  required />
+
                 <label
                   htmlFor="cs-telefono"
-                  className="absolute left-0 -top-3.5 text-emerald-700 text-xs transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-emerald-800/60 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-emerald-700 peer-focus:text-xs uppercase tracking-widest"
-                >
+                  className="absolute left-0 -top-3.5 text-emerald-700 text-xs transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-emerald-800/60 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-emerald-700 peer-focus:text-xs uppercase tracking-widest">
+
                   Numero di Telefono
                 </label>
               </div>
@@ -209,13 +209,13 @@ export default function ComingSoon() {
                 type="submit"
                 disabled={isSubmitting}
                 containerClassName="rounded-full"
-                className="bg-emerald-950 text-[#e4ffec] flex items-center gap-3 px-12 py-4 font-bold tracking-widest uppercase text-sm min-w-[200px] justify-center"
-              >
-                {isSubmitting ? (
-                  <><Loader2 className="w-4 h-4 animate-spin" /> Registrazione...</>
-                ) : (
-                  <><Sparkles className="w-4 h-4" /> Avvisami al lancio</>
-                )}
+                className="bg-emerald-950 text-[#e4ffec] flex items-center gap-3 px-12 py-4 font-bold tracking-widest uppercase text-sm min-w-[200px] justify-center">
+
+                {isSubmitting ?
+                <><Loader2 className="w-4 h-4 animate-spin" /> Registrazione...</> :
+
+                <><Sparkles className="w-4 h-4" /> Avvisami al lancio</>
+                }
               </HoverBorderGradient>
             </div>
 
@@ -230,19 +230,19 @@ export default function ComingSoon() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
-          className="mt-20 flex flex-col items-center gap-4"
-        >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-emerald-800/40">
-            Emeraldress · Milano · Lusso Consapevole
+          className="mt-20 flex flex-col items-center gap-4">
+
+          <p className="text-[10px] tracking-[0.3em] uppercase text-emerald-800/40">EMERALDRESS · OLBIA · LUSSO CONSAPEVOLE
+
           </p>
           <a
-            href="/login"
-            className="text-[9px] tracking-[0.2em] uppercase text-emerald-900/20 hover:text-emerald-900/50 transition-colors duration-300"
-          >
+            href="/admin"
+            className="text-[9px] tracking-[0.2em] uppercase text-emerald-900/20 hover:text-emerald-900/50 transition-colors duration-300">
+
             Admin Access
           </a>
         </motion.div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
