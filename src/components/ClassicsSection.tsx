@@ -5,22 +5,22 @@ import heroVideo from "@/assets/hero-video.mp4";
 const FadeUp = ({
   children,
   delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 36 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay }}
-    className={className}
-  >
+  className = ""
+
+
+
+
+}: {children: React.ReactNode;delay?: number;className?: string;}) =>
+<motion.div
+  initial={{ opacity: 0, y: 36 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay }}
+  className={className}>
+
     {children}
-  </motion.div>
-);
+  </motion.div>;
+
 
 const ClassicsSection = () => {
   return (
@@ -34,8 +34,8 @@ const ClassicsSection = () => {
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+            className="absolute inset-0 w-full h-full object-cover" />
+
           {/* Fade-right to blend into the right column on desktop */}
           <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-transparent via-transparent to-[#f5fef8]/40 pointer-events-none" />
         </div>
@@ -77,8 +77,8 @@ const ClassicsSection = () => {
           <FadeUp delay={0.4}>
             <Link
               to="/collezioni?category=emerald-touch"
-              className="group inline-flex items-center gap-4 border border-neutral-900 text-neutral-900 px-8 py-4 text-xs tracking-[0.25em] uppercase font-sans hover:bg-neutral-900 hover:text-[#f5fef8] transition-all duration-500 w-fit"
-            >
+              className="group inline-flex items-center gap-4 border border-neutral-900 text-neutral-900 px-8 py-4 text-xs tracking-[0.25em] uppercase font-sans hover:bg-neutral-900 hover:text-[#f5fef8] transition-all duration-500 w-fit">
+
               Scopri la Collezione
               <span className="block w-5 h-px bg-current transition-all duration-300 group-hover:w-8" />
             </Link>
@@ -87,13 +87,13 @@ const ClassicsSection = () => {
           {/* Bottom tag */}
           <FadeUp delay={0.5}>
             <p className="mt-12 text-[11px] tracking-[0.25em] uppercase text-neutral-400 font-sans">
-              Manifattura Italiana — Fibre Rigenerate
+              Manifattura Italiana — EmeralDress
             </p>
           </FadeUp>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default ClassicsSection;
