@@ -55,7 +55,7 @@ const Navbar = () => {
             <img
               src={logoEsteso}
               alt="EMERALDRESS"
-              className={`h-10 w-auto transition-all duration-500 ${transparent ? "brightness-0 invert" : "brightness-0"}`}
+              className={`h-16 w-auto transition-all duration-500 ${transparent ? "brightness-0 invert" : "brightness-0"}`}
             />
           </Link>
 
