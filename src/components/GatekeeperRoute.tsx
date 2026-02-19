@@ -22,34 +22,49 @@ export default function GatekeeperRoute({ children }: { children: React.ReactNod
 
     let isMounted = true;
 
-    const checkAdminRole = async (userId: string): Promise<boolean> => {
+    const checkAdminRole = async (userId: string) => {
       try {
-        const { data, error } = await supabase
+        const { data } = await supabase
           .from("user_roles")
           .select("role")
           .eq("user_id", userId)
           .eq("role", "admin")
           .maybeSingle();
-        if (error) return false;
-        return !!data;
+        if (isMounted) setStatus(data ? "allowed" : "blocked");
       } catch {
-        return false;
+        if (isMounted) setStatus("blocked");
       }
     };
 
-    // Use onAuthStateChange as the single source of truth.
-    // It fires immediately with INITIAL_SESSION, so no separate getSession() needed.
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (!isMounted) return;
-
-      if (!session?.user) {
-        setStatus("blocked");
-        return;
+    // Listen for real-time auth changes (login/logout)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (!isMounted) return;
+        if (session?.user) {
+          // Dispatch after callback to avoid deadlock
+          setTimeout(() => checkAdminRole(session.user.id), 0);
+        } else {
+          setStatus("blocked");
+        }
       }
+    );
 
-      const isAdmin = await checkAdminRole(session.user.id);
-      if (isMounted) setStatus(isAdmin ? "allowed" : "blocked");
-    });
+    // Initial check — controls first load
+    const initializeAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+        if (session?.user) {
+          await checkAdminRole(session.user.id);
+        } else {
+          setStatus("blocked");
+        }
+      } catch {
+        if (isMounted) setStatus("blocked");
+      }
+    };
+
+    initializeAuth();
 
     return () => {
       isMounted = false;
@@ -71,4 +86,3 @@ export default function GatekeeperRoute({ children }: { children: React.ReactNod
 
   return <>{children}</>;
 }
-
