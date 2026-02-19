@@ -79,7 +79,7 @@ const ChiSiamo = () => {
     <main className="pt-0 bg-white">
       <ScrollExpandMedia
         mediaType="video"
-        mediaSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/HERO.mp4"
+        mediaSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Progetto%20senza%20titolo%20(2).mp4"
         bgImageSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/SFONDO%20MINT.png"
         title="Emerald Dress"
         scrollToExpand="Scorri per esplorare"
@@ -139,9 +139,11 @@ const ChiSiamo = () => {
           </section>
 
           {/* SEZIONE SOCIAL DRESS */}
-          <section className="py-28 w-screen relative left-1/2 -translate-x-1/2 overflow-hidden" style={{ background: "#e4ffec" }}>
+          <section
+            className="py-28 w-screen relative left-1/2 -translate-x-1/2 overflow-hidden"
+            style={{ background: "#e4ffec" }}
+          >
             <div className="container mx-auto px-4 lg:px-12 relative z-10 max-w-6xl">
-
               {/* Header */}
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -154,12 +156,11 @@ const ChiSiamo = () => {
                   Community
                 </span>
                 <h2 className="font-serif text-4xl md:text-6xl text-emerald-950 leading-tight mb-5">
-                  Social Dress —{" "}
-                  <span className="italic font-light text-emerald-700">La nostra Community</span>
+                  Social Dress — <span className="italic font-light text-emerald-700">La nostra Community</span>
                 </h2>
                 <p className="text-neutral-600 font-sans text-lg max-w-2xl mx-auto leading-relaxed">
-                  Non è solo una pagina Instagram. È un movimento di stile ed eleganza condivisa. Ogni giorno,
-                  donne che scelgono la qualità, la consapevolezza e la bellezza autentica si riconoscono nell'universo
+                  Non è solo una pagina Instagram. È un movimento di stile ed eleganza condivisa. Ogni giorno, donne che
+                  scelgono la qualità, la consapevolezza e la bellezza autentica si riconoscono nell'universo
                   Emeraldress.
                 </p>
               </motion.div>
