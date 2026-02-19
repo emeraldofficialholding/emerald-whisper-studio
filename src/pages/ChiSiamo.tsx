@@ -170,7 +170,7 @@ const ChiSiamo = () => {
                 {[
                   "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(7).jpeg",
                   "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/DETTAGLIO%202.jpeg",
-                  "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/BIANCO%20SCOLLATO/BIANCO%20SCOLLATO%20(1).png",
+                  "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(8).jpeg",
                   "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/BIANCO%20FIOCCO/BIANCO%20FIOCCO(7).jpeg",
                 ].map((src, i) => (
                   <motion.div
