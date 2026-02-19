@@ -2,11 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartSheet from "@/components/CartSheet";
+import GatekeeperRoute from "@/components/GatekeeperRoute";
 import Index from "./pages/Index";
 import ProductDetail from "./pages/ProductDetail";
 import EmeraldScanner from "./pages/EmeraldScanner";
@@ -15,8 +16,41 @@ import ChiSiamo from "./pages/ChiSiamo";
 import Sostenibilita from "./pages/Sostenibilita";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
+import ComingSoon from "./pages/ComingSoon";
 
 const queryClient = new QueryClient();
+
+// Routes that should NOT show the Navbar/Footer (standalone pages)
+const STANDALONE_ROUTES = ["/coming-soon"];
+
+function AppShell() {
+  const location = useLocation();
+  const isStandalone = STANDALONE_ROUTES.some(
+    (r) => location.pathname === r || location.pathname.startsWith(r + "/")
+  );
+
+  return (
+    <CartProvider>
+      {!isStandalone && <Navbar />}
+      {!isStandalone && <CartSheet />}
+      <Routes>
+        {/* ── Public / always accessible ─────────────────────────── */}
+        <Route path="/coming-soon" element={<ComingSoon />} />
+        <Route path="/admin" element={<Admin />} />
+
+        {/* ── Gated routes (admin only while coming soon is active) ── */}
+        <Route path="/" element={<GatekeeperRoute><Index /></GatekeeperRoute>} />
+        <Route path="/collezioni" element={<GatekeeperRoute><Collezioni /></GatekeeperRoute>} />
+        <Route path="/chisiamo" element={<GatekeeperRoute><ChiSiamo /></GatekeeperRoute>} />
+        <Route path="/sostenibilita" element={<GatekeeperRoute><Sostenibilita /></GatekeeperRoute>} />
+        <Route path="/emeraldscanner" element={<GatekeeperRoute><EmeraldScanner /></GatekeeperRoute>} />
+        <Route path="/product/:id" element={<GatekeeperRoute><ProductDetail /></GatekeeperRoute>} />
+        <Route path="*" element={<GatekeeperRoute><NotFound /></GatekeeperRoute>} />
+      </Routes>
+      {!isStandalone && <Footer />}
+    </CartProvider>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -24,21 +58,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <CartProvider>
-          <Navbar />
-          <CartSheet />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/collezioni" element={<Collezioni />} />
-            <Route path="/chisiamo" element={<ChiSiamo />} />
-            <Route path="/sostenibilita" element={<Sostenibilita />} />
-            <Route path="/emeraldscanner" element={<EmeraldScanner />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </CartProvider>
+        <AppShell />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
