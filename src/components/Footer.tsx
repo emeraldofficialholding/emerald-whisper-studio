@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Linkedin, ArrowUpRight, Mail, MapPin, Youtube, Twitter } from "lucide-react";
+import { Instagram, Youtube, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,9 +17,27 @@ const Footer = () => {
               pianeta e un omaggio alla bellezza.
             </p>
             <div className="flex items-center gap-4">
-              <SocialIcon icon={<Instagram className="w-5 h-5" />} href="https://instagram.com" />
-              <Youtube icon={<Facebook className="w-5 h-5" />} href="https://facebook.com" />
-              <Twitter icon={<Linkedin className="w-5 h-5" />} href="https://linkedin.com" />
+              {/* INSTAGRAM */}
+              <SocialIcon icon={<Instagram className="w-5 h-5" />} href="https://www.instagram.com/emeraldress_/" />
+              {/* TIKTOK */}
+              <SocialIcon
+                icon={
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5"
+                  >
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                  </svg>
+                }
+                href="https://www.tiktok.com/@emeraldress"
+              />
+              {/* YOUTUBE */}
+              <SocialIcon icon={<Youtube className="w-5 h-5" />} href="https://www.youtube.com/@emeraldress" />
             </div>
           </div>
 
@@ -51,8 +69,8 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start gap-3 group cursor-pointer">
                 <MapPin className="w-5 h-5 text-emerald-700 mt-0.5 group-hover:text-emerald-500 transition-colors" />
-                <p className="text-sm text-emerald-800/80 font-sans group-hover:text-emerald-950 transition-colors">Via della Spiga, 15
-07026 Olbia, Italia
+                <p className="text-sm text-emerald-800/80 font-sans group-hover:text-emerald-950 transition-colors">
+                  Via della Spiga, 15
                   <br />
                   20121 Milano, Italia
                 </p>
@@ -60,10 +78,10 @@ const Footer = () => {
               <div className="flex items-center gap-3 group cursor-pointer">
                 <Mail className="w-5 h-5 text-emerald-700 group-hover:text-emerald-500 transition-colors" />
                 <a
-                  href="mailto:info@emeraldress.it"
-                  className="text-sm text-emerald-800/80 font-sans group-hover:text-emerald-950 transition-colors">emeraldress@gmail.com
-
-
+                  href="mailto:emeraldress@gmail.com"
+                  className="text-sm text-emerald-800/80 font-sans group-hover:text-emerald-950 transition-colors"
+                >
+                  emeraldress@gmail.com
                 </a>
               </div>
             </div>
@@ -86,33 +104,33 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>);
-
+    </footer>
+  );
 };
 
 // Componente Helper per i Link
-const FooterLink = ({ to, label }: {to: string;label: string;}) =>
-<li>
+const FooterLink = ({ to, label }: { to: string; label: string }) => (
+  <li>
     <Link
-    to={to}
-    className="group flex items-center gap-2 text-sm text-emerald-800/70 hover:text-emerald-950 transition-colors font-sans">
-
+      to={to}
+      className="group flex items-center gap-2 text-sm text-emerald-800/70 hover:text-emerald-950 transition-colors font-sans"
+    >
       <span className="w-0 group-hover:w-2 h-px bg-emerald-500 transition-all duration-300"></span>
       {label}
     </Link>
-  </li>;
-
+  </li>
+);
 
 // Componente Helper per le Icone Social
-const SocialIcon = ({ icon, href }: {icon: React.ReactNode;href: string;}) =>
-<a
-  href={href}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-10 h-10 rounded-full bg-white/50 border border-emerald-200 flex items-center justify-center text-emerald-700 hover:bg-emerald-950 hover:text-[#e4ffec] hover:border-emerald-950 transition-all duration-300">
-
+const SocialIcon = ({ icon, href }: { icon: React.ReactNode; href: string }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/50 border border-emerald-200 flex items-center justify-center text-emerald-700 hover:bg-emerald-950 hover:text-[#e4ffec] hover:border-emerald-950 transition-all duration-300"
+  >
     {icon}
-  </a>;
-
+  </a>
+);
 
 export default Footer;
