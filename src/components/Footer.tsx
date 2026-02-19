@@ -51,8 +51,8 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start gap-3 group cursor-pointer">
                 <MapPin className="w-5 h-5 text-emerald-700 mt-0.5 group-hover:text-emerald-500 transition-colors" />
-                <p className="text-sm text-emerald-800/80 font-sans group-hover:text-emerald-950 transition-colors">Via della Spiga, 15
-07026 Olbia, Italia
+                <p className="text-sm text-emerald-800/80 font-sans group-hover:text-emerald-950 transition-colors">Via della Spiga, 15 07026 Olbia, Italia
+
                   <br />
                   20121 Milano, Italia
                 </p>
