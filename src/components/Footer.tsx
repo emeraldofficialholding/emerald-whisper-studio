@@ -109,17 +109,16 @@ const Footer = () => {
 };
 
 // Componente Helper per i Link
-const FooterLink = ({ to, label }: { to: string; label: string }) => (
-  <li>
+const FooterLink = ({ to, label }: {to: string;label: string;}) =>
+<li>
     <Link
-      to={to}
-      className="group flex items-center gap-2 text-sm text-emerald-800/70 hover:text-emerald-950 transition-colors font-sans"
-    >
-      <span className="w-0 group-hover:w-2 h-px bg-emerald-500 transition-all duration-300" />
+    to={to}
+    className="group flex items-center gap-2 text-sm text-emerald-800/70 hover:text-emerald-950 transition-colors font-sans">
+
+      <span className="w-0 group-hover:w-2 h-px bg-emerald-500 transition-all duration-300"></span>
       {label}
     </Link>
-  </li>
-);
+  </li>;
 
 
 // Componente Helper per le Icone Social
