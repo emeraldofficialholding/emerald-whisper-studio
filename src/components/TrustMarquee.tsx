@@ -8,8 +8,8 @@ import {
   useTransform,
   useMotionValue,
   useVelocity,
-  useAnimationFrame,
-} from "framer-motion";
+  useAnimationFrame } from
+"framer-motion";
 import { wrap } from "@motionone/utils";
 import { cn } from "@/lib/utils";
 
@@ -59,27 +59,27 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
       onMouseLeave={() => {
         isHovered.current = false;
         setHovered(false);
-      }}
-    >
+      }}>
+
       <motion.div
         className="flex whitespace-nowrap gap-8 flex-nowrap py-4"
         style={{ x }}
         animate={{ scale: hovered ? 1.02 : 1 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      >
-        {Array.from({ length: 6 }).map((_, i) => (
-          <span key={i} className="block">
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}>
+
+        {Array.from({ length: 6 }).map((_, i) =>
+        <span key={i} className="block">
             {children}
           </span>
-        ))}
+        )}
       </motion.div>
-    </div>
-  );
+    </div>);
+
 }
 
 const TrustMarquee = () => {
   return (
-    <section className="py-6 overflow-hidden bg-white relative border-b border-emerald-100/30">
+    <section className="overflow-hidden bg-white relative border-b border-emerald-100/30 py-0">
       <div className="relative z-10">
         <MarqueeBand baseVelocity={0.8} direction="left" className="bg-[#e4ffec] border-y border-emerald-100/50">
           <span className="text-emerald-950 font-serif text-lg md:text-2xl tracking-[0.15em] mx-4 flex items-center gap-8">
@@ -93,8 +93,8 @@ const TrustMarquee = () => {
           </span>
         </MarqueeBand>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default TrustMarquee;
