@@ -129,7 +129,7 @@ Emeraldress fonde sensualità moderna e sartorialità italiana in un progetto in
           {/* ATELIER PARALLAX STRIP */}
           <section className="w-screen relative left-1/2 -translate-x-1/2 h-[400px] overflow-hidden mt-16 group">
             <div className="absolute inset-0 bg-black/40 z-10 flex flex-col items-center justify-center text-white">
-              <span className="tracking-[0.5em] uppercase text-sm mb-4">L'Arte del fare</span>
+              <span className="tracking-[0.5em] uppercase text-sm mb-4">L'Arte del </span>
               <h2 className="font-serif text-5xl md:text-6xl">MADE IN ITALY</h2>
             </div>
             <img src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/BIANCO%20FIOCCO/BIANCO%20FIOCCO(1).jpeg"
