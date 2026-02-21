@@ -112,7 +112,7 @@ const ChiSiamo = () => {
               <div className="relative z-10">
                 <h3 className="font-serif text-2xl md:text-5xl text-emerald-950 leading-tight mb-10">
                   
-Emeraldress fonde sensualità moderna e sartorialità italiana in un progetto indipendente e sostenibile. Ogni capo è disegnato personalmente per scolpire la silhouette con tessuti premium e cura artigianale.
+"Emeraldress fonde sensualità moderna e sartorialità italiana in un progetto indipendente e sostenibile. Ogni capo è disegnato personalmente per scolpire la silhouette con tessuti premium e cura artigianale"
                 
                 </h3>
                 <div className="flex justify-center items-center gap-3 text-emerald-800">
