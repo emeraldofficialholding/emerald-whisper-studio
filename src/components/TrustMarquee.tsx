@@ -84,13 +84,13 @@ const TrustMarquee = () => {
         <MarqueeBand baseVelocity={0.8} direction="left" className="bg-[#e4ffec] border-y border-emerald-100/50">
           {/* Sostituito font-serif con font-sans e font-medium per una leggibilità perfetta in movimento */}
           <span className="text-emerald-950 font-sans font-medium text-base md:text-lg tracking-[0.15em] mx-4 flex items-center gap-8">
-            SustainableFashion <span className="text-emerald-400 text-sm">●</span>
-            EcoLuxury <span className="text-emerald-400 text-sm">●</span>
-            MadeInItaly <span className="text-emerald-400 text-sm">●</span>
-            Ecological fabrics <span className="text-emerald-400 text-sm">●</span>
-            Lusso Sostenibile <span className="text-emerald-400 text-sm">●</span>
-            Costa Smeralda Style <span className="text-emerald-400 text-sm">●</span>
-            ecofriendly <span className="text-emerald-400 text-sm">●</span>
+            SUSTAINABLE FASHION <span className="text-emerald-400 text-sm">●</span>
+            ECO LUXURY <span className="text-emerald-400 text-sm">●</span>
+            MADE IN ITALY <span className="text-emerald-400 text-sm">●</span>
+            ECOLOGICAL FABRICS <span className="text-emerald-400 text-sm">●</span>
+            LUSSO SOSTENIBILE <span className="text-emerald-400 text-sm">●</span>
+            COSTA SMERALDA STYLE <span className="text-emerald-400 text-sm">●</span>
+            ECO FRIENDLY <span className="text-emerald-400 text-sm">●</span>
           </span>
         </MarqueeBand>
       </div>
