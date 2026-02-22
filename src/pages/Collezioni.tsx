@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
 import GemLoader from "@/components/GemLoader";
 import { motion, AnimatePresence } from "framer-motion";
 import { Filter, ChevronDown, Sparkles } from "lucide-react";
+import logoET from "@/assets/logo-emeraldtouch.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -66,7 +67,9 @@ const CollectionCard = ({ product, index }: { product: any; index: number }) => 
 
 // --- PAGINA COLLEZIONI ---
 const Collezioni = () => {
-  const [activeFilter, setActiveFilter] = useState<string | undefined>(undefined);
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category") || undefined;
+  const [activeFilter, setActiveFilter] = useState<string | undefined>(initialCategory);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "none">("none");
 
   const { data: products, isLoading } = useProducts(activeFilter);
@@ -92,7 +95,11 @@ const Collezioni = () => {
       <div className="text-center mb-16 container mx-auto px-4">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
           <span className="text-[10px] font-bold tracking-[0.4em] text-emerald-700/70 uppercase">Atelier 2026</span>
-          <h1 className="font-serif text-5xl md:text-6xl text-neutral-900 tracking-tight italic">{pageTitle}</h1>
+          {activeFilter === "emerald-touch" ? (
+            <img src={logoET} alt="Emerald Touch" className="h-10 md:h-14 object-contain mx-auto" />
+          ) : (
+            <h1 className="font-serif text-5xl md:text-6xl text-neutral-900 tracking-tight italic">{pageTitle}</h1>
+          )}
           <div className="w-12 h-[1px] bg-emerald-200 mx-auto mt-6"></div>
         </motion.div>
       </div>
