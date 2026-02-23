@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { Sparkles, ArrowRight } from "lucide-react";
 import logoET from "@/assets/logo-emeraldtouch.png";
+import logoED from "@/assets/logo-ed.png";
 
 const EmeraldTouchSection = () => {
   // MODIFICA: Carichiamo tutti i prodotti e filtriamo lato client per maggiore sicurezza
@@ -55,6 +56,9 @@ const EmeraldTouchSection = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
+            <div className="w-20 h-20 bg-emerald-100/50 rounded-full flex items-center justify-center mx-auto mb-4 p-2">
+              <img src={logoED} alt="Emeraldress" className="w-full h-full object-contain" />
+            </div>
             <div className="flex items-center justify-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-emerald-500" />
               <p className="text-xs tracking-[0.3em] uppercase font-bold font-sans text-emerald-500">
