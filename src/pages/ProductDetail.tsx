@@ -235,7 +235,8 @@ const ProductDetail = () => {
   const sizes = rawSizes
     .flatMap((s) => {
       const cleaned = String(s).replace(/[{}]/g, "").trim();
-      return cleaned.includes(",") ? cleaned.split(",") : [cleaned];
+      // Split on comma, dash-space, or standalone dash separators
+      return cleaned.split(/[,]|(?:\s*-\s+)|\s+-\s*/).map(v => v.trim());
     })
     .map((s) => s.trim())
     .filter(Boolean);
