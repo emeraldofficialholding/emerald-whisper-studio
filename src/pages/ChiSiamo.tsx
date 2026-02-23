@@ -45,9 +45,9 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          Bellezza consapevole, stile senza tempo. Utilizziamo materiali ecologici per una moda che non lascia tracce
-          negative. Progettiamo capi fatti per durare, dove l'estetica incontra la responsabilità. Sentirsi bene non è
-          mai stato così naturale.
+          La nostra missione è creare capi pensati per valorizzare e rispettare il corpo. Scegliendo esclusivamente
+          tessuti ecosostenibili crediamo che nel nostro piccolo possiamo contribuire a rende il mondo un posto più
+          pulito.
         </p>
         <img
           src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_bv0czcbv0czcbv0c%20-%20Modificata.png"
