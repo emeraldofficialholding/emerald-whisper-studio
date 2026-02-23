@@ -14,15 +14,14 @@ const fadeUp = {
 // --- TIMELINE AGGIORNATA CON LA TUA STORIA ---
 const timelineData = [
   {
-    title: "Le Origini",
+    title: "Filosofia",
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          Fin da bambina, osservavo la moda come un mondo affascinante e lontano: le vetrine erano tele di un sogno
-          ancora senza forma. Per anni ho indossato ciò che era disponibile, scontrandomi presto con la realtà del fast
-          fashion: tessuti che non lasciavano respirare la pelle, irritazioni e forme che svanivano dopo pochi lavaggi.
-          Ho capito che non stavo scegliendo cosa indossare: stavo accettando materiali che non rispettavano né il mio
-          corpo né la mia idea di eleganza.
+          Per anni ho indossato ciò che era disponibile, scontrandomi presto con la realtà del fast fashion: tessuti che
+          non lasciavano respirare la pelle, irritazioni e forme che svanivano dopo pochi lavaggi. Ho capito che non
+          stavo scegliendo cosa indossare: stavo accettando materiali che non rispettavano né il mio corpo né la mia
+          idea di eleganza.
         </p>
         <div className="grid grid-cols-2 gap-4">
           <img
@@ -41,14 +40,14 @@ const timelineData = [
     ),
   },
   {
-    title: "La Svolta",
+    title: "Mission",
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          Da quella consapevolezza è nato un punto di svolta. La moda, da semplice passione, è diventata improvvisamente
-          una responsabilità: creare capi che fossero belli, funzionali e sani. Era necessario trasformare quel sogno
-          lontano in un'esperienza autentica. Così è iniziato il percorso di Emeraldress: non più compromessi, ma la
-          ricerca di un benessere che parte dal tessuto e arriva all'anima.
+          La moda, da semplice passione, è diventata improvvisamente una responsabilità: creare capi che fossero belli,
+          funzionali e sani. Era necessario trasformare quel sogno lontano in un'esperienza autentica. Così è iniziato
+          il percorso di Emeraldress: non più compromessi, ma la ricerca di un benessere che parte dal tessuto e arriva
+          all'anima.
         </p>
         <img
           src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_bv0czcbv0czcbv0c%20-%20Modificata.png"
@@ -59,7 +58,7 @@ const timelineData = [
     ),
   },
   {
-    title: "Oggi",
+    title: "Emerald Touch",
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-4 leading-relaxed">
