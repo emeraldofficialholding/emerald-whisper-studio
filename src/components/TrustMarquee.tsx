@@ -87,16 +87,16 @@ const TrustMarquee = () => {
           {/* MODIFICA QUI: Aggiunto shrink-0, pr-8 e i tag <span> per mantenere la struttura intatta */}
           <div className="text-emerald-950 font-sans font-medium text-base md:text-lg tracking-[0.15em] flex items-center shrink-0 gap-8 pr-8">
             <span>SUSTAINABLE FASHION</span>{" "}
-            <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
-            <span>ECO LUXURY</span> <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
-            <span>MADE IN ITALY</span> <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
+            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
+            <span>ECO LUXURY</span> <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
+            <span>MADE IN ITALY</span> <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
             <span>ECOLOGICAL FABRICS</span>{" "}
-            <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
+            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
             <span>LUSSO SOSTENIBILE</span>{" "}
-            <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
+            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
             <span>COSTA SMERALDA STYLE</span>{" "}
-            <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
-            <span>ECO FRIENDLY</span> <img src={logoED} alt="logo" className="h-4 w-auto object-contain shrink-0" />
+            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
+            <span>ECO FRIENDLY</span> <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
           </div>
         </MarqueeBand>
       </div>
