@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { User, ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import logoET from "@/assets/logo-emeraldtouch.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -58,17 +59,37 @@ const Navbar = () => {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
-            {links.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`text-xs tracking-[0.15em] uppercase font-sans font-medium transition-opacity hover:opacity-70 ${
-                  location.pathname === link.to ? "opacity-100" : "opacity-80"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) =>
+              link.to === "/collezioni" ? (
+                <div key={link.to} className="relative group">
+                  <Link
+                    to={link.to}
+                    className={`text-xs tracking-[0.15em] uppercase font-sans font-medium transition-opacity hover:opacity-70 ${
+                      location.pathname === link.to ? "opacity-100" : "opacity-80"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                    <div className="bg-white/95 backdrop-blur-md shadow-lg border border-emerald-100/50 px-6 py-4 min-w-[180px] flex justify-center">
+                      <Link to="/collezioni" className="hover:opacity-70 transition-opacity">
+                        <img src={logoET} alt="Emerald Touch" className="h-8 object-contain" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`text-xs tracking-[0.15em] uppercase font-sans font-medium transition-opacity hover:opacity-70 ${
+                    location.pathname === link.to ? "opacity-100" : "opacity-80"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-4">
