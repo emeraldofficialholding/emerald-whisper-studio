@@ -250,13 +250,36 @@ const Sostenibilita = () => {
       {/* 1. HERO SECTION */}
       <HeroSustainability />
 
-      {/* 2. IL CAROSELLO (Il Processo) */}
+      {/* 2. IL CAROSELLO E L'INTRODUZIONE AL PROCESSO */}
       <section className="py-24 bg-white relative z-10 overflow-hidden">
-        <div className="container mx-auto px-4 mb-16 text-center">
-          <span className="text-emerald-600 tracking-[0.2em] text-sm font-bold uppercase block mb-4">
-            Il Ciclo Virtuoso
-          </span>
-          <h2 className="font-serif text-4xl md:text-6xl text-emerald-950">Dalla Natura alla Natura</h2>
+        <div className="container mx-auto px-4 mb-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-emerald-600 tracking-[0.2em] text-sm font-bold uppercase block mb-4">
+              Il Ciclo Virtuoso
+            </span>
+            <h2 className="font-serif text-4xl md:text-6xl text-emerald-950 mb-8">Dalla Natura alla Natura</h2>
+
+            {/* NUOVO TESTO INTRODUTTIVO */}
+            <div className="max-w-4xl mx-auto space-y-6 text-neutral-600 font-sans text-base md:text-lg leading-relaxed text-justify md:text-center">
+              <p>
+                Il cuore di Emeraldress è un tessuto tecnico di nuova generazione: una fibra rigenerata creata a partire
+                da materiali di scarto pre e post-consumo - come reti da pesca e scarti tessili - che vengono scomposti
+                a livello molecolare e trasformati in nuovo filato. Questo processo di rigenerazione consente di
+                ottenere un materiale chimicamente identico al nylon vergine, ma prodotto in modo circolare e
+                responsabile, riducendo drasticamente l'impatto ambientale.
+              </p>
+              <p>
+                Una volta rigenerato, il filo viene lavorato per creare un tessuto ad alta densità, straordinariamente
+                morbido, traspirante e modellante, perfetto per dare vita a capi dal fitting impeccabile che si adattano
+                come una seconda pelle.
+              </p>
+            </div>
+          </motion.div>
         </div>
 
         <div className="container mx-auto px-0 md:px-4">
