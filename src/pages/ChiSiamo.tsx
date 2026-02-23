@@ -18,10 +18,9 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          Per anni ho indossato ciò che era disponibile, scontrandomi presto con la realtà del fast fashion: tessuti che
-          non lasciavano respirare la pelle, irritazioni e forme che svanivano dopo pochi lavaggi. Ho capito che non
-          stavo scegliendo cosa indossare: stavo accettando materiali che non rispettavano né il mio corpo né la mia
-          idea di eleganza.
+          Celebriamo la femminilità con silhouette scultoree e materiali premium sostenibili, esaltando la figura senza
+          eccessi. Offriamo un'eleganza senza tempo che unisce il lusso mediterraneo alla perfezione artigianale
+          italiana.
         </p>
         <div className="grid grid-cols-2 gap-4">
           <img
@@ -44,10 +43,9 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          La moda, da semplice passione, è diventata improvvisamente una responsabilità: creare capi che fossero belli,
-          funzionali e sani. Era necessario trasformare quel sogno lontano in un'esperienza autentica. Così è iniziato
-          il percorso di Emeraldress: non più compromessi, ma la ricerca di un benessere che parte dal tessuto e arriva
-          all'anima.
+          Ridefiniamo l'eleganza estiva creando un guardaroba iconico che valorizza ogni corpo nel totale rispetto del
+          pianeta. Intrecciamo estetica, responsabilità ambientale e Made in Italy attraverso tessuti ecosostenibili
+          d'eccellenza.
         </p>
         <img
           src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_bv0czcbv0czcbv0c%20-%20Modificata.png"
@@ -62,11 +60,9 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-4 leading-relaxed">
-          Oggi Emeraldress è un progetto indipendente, costruito con dedizione quotidiana. Disegno personalmente ogni
-          capo studiando le linee per scolpire la silhouette e seleziono solo tessuti premium lavorati in Italia. Non
-          seguiamo le tendenze: offriamo un'alternativa consapevole. È la realizzazione di un desiderio profondo:
-          sentirmi finalmente a mio agio in ciò che indosso e offrire la stessa sensazione di lusso e cura a tutte le
-          donne.
+          Una capsule essenziale di cinque capi iconici dall'estetica minimalista e sensuale, definita dai contrasti
+          netti tra bianco e nero. Un immaginario visivo che trasmette il lusso discreto della sofisticata estate
+          mediterranea.
         </p>
       </div>
     ),
