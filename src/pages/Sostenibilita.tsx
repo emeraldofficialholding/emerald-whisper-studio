@@ -24,7 +24,7 @@ import GemLoader from "@/components/GemLoader";
 const slides = [
   {
     id: 1,
-    percentage: "01",
+    percentage: "1",
     title: "LA FIBRA",
     verticalText: "Nuova Generazione",
     description:
@@ -33,7 +33,7 @@ const slides = [
   },
   {
     id: 2,
-    percentage: "02",
+    percentage: "2",
     title: "IL PROCESSO",
     verticalText: "Scomposizione Molecolare",
     description:
@@ -42,7 +42,7 @@ const slides = [
   },
   {
     id: 3,
-    percentage: "03",
+    percentage: "3",
     title: "CIRCOLARITÀ",
     verticalText: "Impatto Ridotto",
     description:
@@ -51,7 +51,7 @@ const slides = [
   },
   {
     id: 4,
-    percentage: "04",
+    percentage: "4",
     title: "SECONDA PELLE",
     verticalText: "Fitting Impeccabile",
     description:
