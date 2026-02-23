@@ -56,7 +56,7 @@ const timelineData = [
     ),
   },
   {
-    title: <img src={logoET} alt="Emerald Touch" className="h-8 md:h-12 object-contain" />,
+    title: "Filiera",
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-4 leading-relaxed">
