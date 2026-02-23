@@ -38,7 +38,7 @@ const slides = [
     verticalText: "Scomposizione Molecolare",
     description:
       "I materiali di scarto vengono scomposti a livello molecolare e trasformati in nuovo filato. Questo processo di rigenerazione consente di ottenere un materiale chimicamente identico al nylon vergine.",
-    image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/1.png",
+    image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/DETT%201.jpeg",
   },
   {
     id: 3,
