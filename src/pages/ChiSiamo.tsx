@@ -19,9 +19,10 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          Emeraldress: il nuovo riferimento internazionale del luxury wear. Uniamo design innovativo, vestibilità
-          impeccabile e materiali consapevoli. Creiamo capi senza tempo per chi cerca il perfetto equilibrio tra
-          bellezza, qualità e rispetto per il corpo.
+          Emeraldress aspira a diventare un punto di riferimento internazionale nel panorama del luxury wear, un marchio
+          sinonimo di stile senza tempo. Immaginiamo un brand che diventi un punto di riferimento internazionale per chi
+          ricerca capi che uniscono bellezza, qualità e rispetto per il proprio corpo. Un marchio che innova attraverso
+          il design, valorizza attraverso il fit e ispira attraverso la consapevolezza dei materiali scelti.
         </p>
         <div className="grid grid-cols-2 gap-4">
           <img
