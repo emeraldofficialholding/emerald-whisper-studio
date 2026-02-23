@@ -9,15 +9,15 @@ const fadeUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   transition: { duration: 0.8 },
-  viewport: { once: true },
+  viewport: { once: true }
 };
 
 // --- TIMELINE AGGIORNATA CON LA TUA STORIA ---
 const timelineData = [
-  {
-    title: "Filosofia",
-    content: (
-      <div>
+{
+  title: "Filosofia",
+  content:
+  <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
           Celebriamo la <strong>femminilità</strong> con <strong>silhouette scultoree</strong> e <strong>materiali premium sostenibili</strong>, esaltando la figura senza
           eccessi. Offriamo un'<strong>eleganza senza tempo</strong> che unisce il <strong>lusso mediterraneo</strong> alla <strong>perfezione artigianale
@@ -25,50 +25,50 @@ const timelineData = [
         </p>
         <div className="grid grid-cols-2 gap-4">
           <img
-            src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_2zwpfk2zwpfk2zwp%20-%20Modificata.png"
-            alt="Ispirazione iniziale"
-            className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
-          />
+        src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_2zwpfk2zwpfk2zwp%20-%20Modificata.png"
+        alt="Ispirazione iniziale"
+        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md" />
+
 
           <img
-            src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/asset.jpg"
-            alt="Primi bozzetti"
-            className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
-          />
+        src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/asset.jpg"
+        alt="Primi bozzetti"
+        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md" />
+
         </div>
       </div>
-    ),
-  },
-  {
-    title: "Mission",
-    content: (
-      <div>
+
+},
+{
+  title: "Mission",
+  content:
+  <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
           Ridefiniamo l'<strong>eleganza estiva</strong> creando un <strong>guardaroba iconico</strong> che valorizza ogni corpo nel totale rispetto del
           pianeta. Intrecciamo <strong>estetica</strong>, <strong>responsabilità ambientale</strong> e <strong>Made in Italy</strong> attraverso <strong>tessuti ecosostenibili</strong>
           d'eccellenza.
         </p>
         <img
-          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_bv0czcbv0czcbv0c%20-%20Modificata.png"
-          alt="Ricerca tessuti sani"
-          className="rounded-lg object-cover h-40 md:h-64 w-full shadow-md"
-        />
+      src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_bv0czcbv0czcbv0c%20-%20Modificata.png"
+      alt="Ricerca tessuti sani"
+      className="rounded-lg object-cover h-40 md:h-64 w-full shadow-md" />
+
       </div>
-    ),
-  },
-  {
-    title: <img src={logoET} alt="Emerald Touch" className="h-8 md:h-12 object-contain" />,
-    content: (
-      <div>
+
+},
+{
+  title: <img src={logoET} alt="Emerald Touch" className="h-8 md:h-12 object-contain" />,
+  content:
+  <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-4 leading-relaxed">
           Una <strong>capsule essenziale</strong> di cinque capi iconici dall'<strong>estetica minimalista e sensuale</strong>, definita dai contrasti
           netti tra bianco e nero. Un immaginario visivo che trasmette il <strong>lusso discreto</strong> della sofisticata <strong>estate
           mediterranea</strong>.
         </p>
       </div>
-    ),
-  },
-];
+
+}];
+
 
 const ChiSiamo = () => {
   return (
@@ -79,8 +79,8 @@ const ChiSiamo = () => {
         bgImageSrc="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/SFONDO%20MINT.png"
         title="Emerald Dress"
         scrollToExpand="Scorri per esplorare"
-        textBlend
-      >
+        textBlend>
+
         <div className="pt-16">
           {/* Header Description */}
           <motion.div {...fadeUp} className="container mx-auto px-4 lg:px-8 max-w-2xl mb-24">
@@ -101,15 +101,15 @@ const ChiSiamo = () => {
                 className="absolute inset-0 opacity-[0.4]"
                 style={{
                   backgroundImage: "radial-gradient(#10b981 0.5px, transparent 0.5px)",
-                  backgroundSize: "12px 12px",
-                }}
-              ></div>
+                  backgroundSize: "12px 12px"
+                }}>
+              </div>
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-30"></div>
               <div className="relative z-10">
                 <h3 className="font-serif text-2xl md:text-5xl text-emerald-950 leading-tight mb-10">
-                  "Emeraldress fonde sensualità moderna e sartorialità italiana in un progetto indipendente e
-                  sostenibile. Ogni capo è disegnato personalmente per scolpire la silhouette con tessuti premium e cura
-                  artigianale"
+                  "Emeraldress fonde stile contemporaneo al Made in Italy in un progetto indipendente e sostenibile. Ogni capo è disegnato personalmente per scolpire la silhouette con tessuti premium e cura artigianale"
+                
+
                 </h3>
                 <div className="flex justify-center items-center gap-3 text-emerald-800">
                   <span className="font-serif italic text-3xl md:text-4xl transform -rotate-3">Noemy - Founder</span>
@@ -131,15 +131,15 @@ const ChiSiamo = () => {
             <img
               src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(3).jpeg"
               alt="Atelier"
-              className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[2000ms]"
-            />
+              className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[2000ms]" />
+
           </section>
 
           {/* SEZIONE SOCIAL DRESS */}
           <section
             className="py-28 w-screen relative left-1/2 -translate-x-1/2 overflow-hidden"
-            style={{ background: "#e4ffec" }}
-          >
+            style={{ background: "#e4ffec" }}>
+
             <div className="container mx-auto px-4 lg:px-12 relative z-10 max-w-6xl">
               {/* Header */}
               <motion.div
@@ -147,8 +147,8 @@ const ChiSiamo = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
-                className="text-center mb-16"
-              >
+                className="text-center mb-16">
+
                 <span className="inline-block py-1 px-4 rounded-full border border-emerald-300 text-emerald-700 text-[10px] uppercase tracking-[0.25em] font-bold mb-5">
                   Community
                 </span>
@@ -163,28 +163,28 @@ const ChiSiamo = () => {
               {/* Instagram Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-14">
                 {[
-                  "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(7).jpeg",
-                  "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/DETTAGLIO%203.jpeg",
-                  "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(8).jpeg",
-                  "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/BIANCO%20FIOCCO/BIANCO%20FIOCCO(7).jpeg",
-                ].map((src, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                    className="relative aspect-square overflow-hidden rounded-xl border border-emerald-100 shadow-sm group"
-                  >
+                "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(7).jpeg",
+                "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/DETTAGLIO%203.jpeg",
+                "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/NERO%20CLASSIC/NERO%20CLASSIC%20(8).jpeg",
+                "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/products/BIANCO%20FIOCCO/BIANCO%20FIOCCO(7).jpeg"].
+                map((src, i) =>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="relative aspect-square overflow-hidden rounded-xl border border-emerald-100 shadow-sm group">
+
                     <img
-                      src={src}
-                      alt={`Post ${i + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    src={src}
+                    alt={`Post ${i + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+
 
                     <div className="absolute inset-0 bg-emerald-950/0 group-hover:bg-emerald-950/20 transition-colors duration-500" />
                   </motion.div>
-                ))}
+                )}
               </div>
 
               {/* CTA Row */}
@@ -193,14 +193,14 @@ const ChiSiamo = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.4 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-6"
-              >
+                className="flex flex-col sm:flex-row items-center justify-center gap-6">
+
                 <a
                   href="https://www.instagram.com/emeraldress_/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-3 border border-neutral-900 text-neutral-900 text-xs tracking-widest uppercase font-bold transition-all duration-300 hover:border-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-none"
-                >
+                  className="inline-flex items-center gap-3 px-8 py-3 border border-neutral-900 text-neutral-900 text-xs tracking-widest uppercase font-bold transition-all duration-300 hover:border-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-none">
+
                   <Instagram className="w-4 h-4" />
                   @emeraldress_
                 </a>
@@ -249,8 +249,8 @@ const ChiSiamo = () => {
           </section>
         </div>
       </ScrollExpandMedia>
-    </main>
-  );
+    </main>);
+
 };
 
 export default ChiSiamo;
