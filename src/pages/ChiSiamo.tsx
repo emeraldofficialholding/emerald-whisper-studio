@@ -60,10 +60,10 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-4 leading-relaxed">
-          Tutta la produzione Emeraldress avviene esclusivamente in Italia. Dalla modellistica alla confezione finale,
-          ogni fase è gestita da professionisti specializzati nella lavorazione dei tessuti elasticizzati premium.
-          Collaboriamo con piccoli laboratori sartoriali del territorio,dove ogni capo viene confezionato manualmente da
-          sarte qualificate.
+          Tutta la produzione <strong>Emeraldress</strong> avviene esclusivamente in <strong>Italia</strong>. Dalla
+          modellistica alla confezione finale, ogni fase è gestita da <strong>professionisti specializzati</strong>{" "}
+          nella lavorazione dei <strong>tessuti elasticizzati premium</strong>. Collaboriamo con piccoli laboratori
+          sartoriali del <strong>territorio</strong>,dove ogni capo viene confezionato manualmente da sarte qualificate.
         </p>
       </div>
     ),
