@@ -118,9 +118,7 @@ const ManifestoSection = () => {
                 </h3>
                 <div className="h-1 w-20 bg-emerald-400 mb-8" />
                 <p className="text-neutral-600 text-lg leading-relaxed font-sans mb-8">
-                  Non creiamo solo abiti, progettiamo il futuro. Ogni capo Emeraldress nasce dal recupero di reti da
-                  pesca abbandonate nei mari, trasformate in prezioso <strong>Nylon ECONYL®</strong>. Scopri come un
-                  problema ambientale diventa bellezza pura, senza compromessi per il pianeta.
+                  Progettiamo il futuro trasformando reti da pesca abbandonate in pregiato <strong>Nylon ECONYL®<strong> Con Emeraldress, il problema ambientale diventa bellezza pura e sostenibile, senza compromessi per il pianeta.
                 </p>
 
                 {/* NUOVO BOTTONE VERSO /SOSTENIBILITA */}
