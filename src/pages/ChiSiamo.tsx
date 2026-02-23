@@ -112,7 +112,7 @@ const ChiSiamo = () => {
 
                 </h3>
                 <div className="flex justify-center items-center gap-3 text-emerald-800">
-                  <span className="font-serif italic text-3xl md:text-4xl transform -rotate-3">Noemy - Founder</span>
+                  <span className="font-serif italic text-3xl md:text-4xl transform -rotate-3">Noemy Alba - Founder</span>
                   <PenTool className="w-5 h-5 opacity-70" />
                 </div>
               </div>
