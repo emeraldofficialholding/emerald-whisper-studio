@@ -15,14 +15,13 @@ const fadeUp = {
 // --- TIMELINE AGGIORNATA CON LA TUA STORIA ---
 const timelineData = [
   {
-    title: "Filosofia",
+    title: "Vision",
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-8 leading-relaxed">
-          Celebriamo la <strong>femminilità</strong> con <strong>silhouette scultoree</strong> e{" "}
-          <strong>materiali premium sostenibili</strong>, esaltando la figura senza eccessi. Offriamo un'
-          <strong>eleganza senza tempo</strong> che unisce il <strong>lusso mediterraneo</strong> alla{" "}
-          <strong>perfezione artigianale italiana</strong>.
+          Emeraldress: il nuovo riferimento internazionale del luxury wear. Uniamo design innovativo, vestibilità
+          impeccabile e materiali consapevoli. Creiamo capi senza tempo per chi cerca il perfetto equilibrio tra
+          bellezza, qualità e rispetto per il corpo.
         </p>
         <div className="grid grid-cols-2 gap-4">
           <img
