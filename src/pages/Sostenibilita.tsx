@@ -10,8 +10,8 @@ import {
   Sun,
   Droplet,
   CircleDashed,
-  Wind,
-} from "lucide-react";
+  Wind } from
+"lucide-react";
 import logoED from "@/assets/logo-ed.png";
 import logoET from "@/assets/logo-emeraldtouch.png";
 import { Link } from "react-router-dom";
@@ -22,63 +22,63 @@ import GemLoader from "@/components/GemLoader";
 
 // --- DATI DEL CAROSELLO (Il testo diviso in 4 fasi) ---
 const slides = [
-  {
-    id: 1,
-    percentage: "1",
-    title: "LA FIBRA",
-    verticalText: "Nuova Generazione",
-    description:
-      "Il cuore di Emeraldress è un <strong>tessuto tecnico di nuova generazione</strong>: una <strong>fibra rigenerata</strong> creata a partire da materiali di scarto pre e post-consumo - come <strong>reti da pesca</strong> e <strong>scarti tessili</strong>.",
-    image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/2.jpg",
-  },
-  {
-    id: 2,
-    percentage: "2",
-    title: "IL PROCESSO",
-    verticalText: "Scomposizione Molecolare",
-    description:
-      "I materiali di scarto vengono <strong>scomposti a livello molecolare</strong> e trasformati in nuovo filato. Questo <strong>processo di rigenerazione</strong> consente di ottenere un materiale <strong>chimicamente identico</strong> al nylon vergine.",
-    image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/DETT%201.jpeg",
-  },
-  {
-    id: 3,
-    percentage: "3",
-    title: "CIRCOLARITÀ",
-    verticalText: "Impatto Ridotto",
-    description:
-      "Tutto è prodotto in modo <strong>circolare e responsabile</strong>, riducendo drasticamente l'<strong>impatto ambientale</strong> rispetto alla produzione tradizionale, dando <strong>nuova vita</strong> a ciò che andrebbe distrutto.",
-    image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/emeraldress%20acqua.PNG",
-  },
-  {
-    id: 4,
-    percentage: "4",
-    title: "SECONDA PELLE",
-    verticalText: "Fitting Impeccabile",
-    description:
-      "Una volta rigenerato, il filo crea un tessuto ad <strong>alta densità</strong>, straordinariamente <strong>morbido, traspirante e modellante</strong>, perfetto per dare vita a capi dal <strong>fitting impeccabile</strong> che si adattano come una <strong>seconda pelle</strong>.",
-    image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/TESSUTO.jpeg",
-  },
-];
+{
+  id: 1,
+  percentage: "1",
+  title: "LA FIBRA",
+  verticalText: "Nuova Generazione",
+  description:
+  "Il cuore di Emeraldress è un <strong>tessuto tecnico di nuova generazione</strong>: una <strong>fibra rigenerata</strong> creata a partire da materiali di scarto pre e post-consumo - come <strong>reti da pesca</strong> e <strong>scarti tessili</strong>.",
+  image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/2.jpg"
+},
+{
+  id: 2,
+  percentage: "2",
+  title: "IL PROCESSO",
+  verticalText: "Scomposizione Molecolare",
+  description:
+  "I materiali di scarto vengono <strong>scomposti a livello molecolare</strong> e trasformati in nuovo filato. Questo <strong>processo di rigenerazione</strong> consente di ottenere un materiale <strong>chimicamente identico</strong> al nylon vergine.",
+  image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/DETT%201.jpeg"
+},
+{
+  id: 3,
+  percentage: "3",
+  title: "CIRCOLARITÀ",
+  verticalText: "Impatto Ridotto",
+  description:
+  "Tutto è prodotto in modo <strong>circolare e responsabile</strong>, riducendo drasticamente l'<strong>impatto ambientale</strong> rispetto alla produzione tradizionale, dando <strong>nuova vita</strong> a ciò che andrebbe distrutto.",
+  image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/emeraldress%20acqua.PNG"
+},
+{
+  id: 4,
+  percentage: "4",
+  title: "SECONDA PELLE",
+  verticalText: "Fitting Impeccabile",
+  description:
+  "Una volta rigenerato, il filo crea un tessuto ad <strong>alta densità</strong>, straordinariamente <strong>morbido, traspirante e modellante</strong>, perfetto per dare vita a capi dal <strong>fitting impeccabile</strong> che si adattano come una <strong>seconda pelle</strong>.",
+  image: "https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/TESSUTO.jpeg"
+}];
+
 
 // --- COMPONENTE HERO ---
-const HeroSustainability = () => (
-  <section className="relative h-[85vh] w-full overflow-hidden">
+const HeroSustainability = () =>
+<section className="relative h-[85vh] w-full overflow-hidden">
     <div className="absolute inset-0">
       <video autoPlay loop muted playsInline className="w-full h-full object-cover object-center blur-[1px] scale-105">
         <source
-          src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/HERO.mov"
-          type="video/mp4"
-        />
+        src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/HERO.mov"
+        type="video/mp4" />
+
       </video>
       <div className="absolute inset-0 bg-black/30" />
     </div>
     <div className="absolute inset-0 container mx-auto px-4 flex items-center justify-center md:justify-start text-center md:text-left">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="max-w-3xl text-white"
-      >
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className="max-w-3xl text-white">
+
         <span className="text-xs md:text-sm tracking-[0.4em] uppercase font-sans mb-6 block text-emerald-200 font-bold">
           La Nostra Promessa
         </span>
@@ -91,22 +91,22 @@ const HeroSustainability = () => (
         </p>
       </motion.div>
     </div>
-  </section>
-);
+  </section>;
+
 
 // --- BANNER: CARATTERISTICHE TESSUTO ---
 const FabricFeatures = () => {
   const features = [
-    { icon: Expand, title: "BIELASTICO" },
-    { icon: Recycle, title: "FIBRA RICICLATA" },
-    { icon: StretchHorizontal, title: "MANTENIMENTO DELLA FORMA" },
-    { icon: Grid3X3, title: "OTTIMA COPERTURA" },
-    { icon: Shrink, title: "PERFETTA VESTIBILITÀ" },
-    { icon: Sun, title: "PROTEZIONE DAI RAGGI UV" },
-    { icon: Droplet, title: "RESISTENTE AL CLORO" },
-    { icon: CircleDashed, title: "RESISTENTE AL PILLING" },
-    { icon: Wind, title: "TRASPIRANTE" },
-  ];
+  { icon: Expand, title: "BIELASTICO" },
+  { icon: Recycle, title: "FIBRA RICICLATA" },
+  { icon: StretchHorizontal, title: "MANTENIMENTO DELLA FORMA" },
+  { icon: Grid3X3, title: "OTTIMA COPERTURA" },
+  { icon: Shrink, title: "PERFETTA VESTIBILITÀ" },
+  { icon: Sun, title: "PROTEZIONE DAI RAGGI UV" },
+  { icon: Droplet, title: "RESISTENTE AL CLORO" },
+  { icon: CircleDashed, title: "RESISTENTE AL PILLING" },
+  { icon: Wind, title: "TRASPIRANTE" }];
+
 
   return (
     <section className="py-24 bg-[#fbfbfb] border-y border-emerald-100/50">
@@ -116,22 +116,22 @@ const FabricFeatures = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif text-4xl md:text-5xl text-emerald-950 mb-16 text-left leading-tight"
-          >
+            className="font-serif text-4xl md:text-5xl text-emerald-950 mb-16 text-left leading-tight">
+
             CARATTERISTICHE <br />
             DEL TESSUTO:
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-6 group"
-              >
+            {features.map((feature, index) =>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="flex items-center gap-6 group">
+
                 <div className="text-emerald-950 group-hover:text-emerald-500 transition-colors duration-300">
                   <feature.icon strokeWidth={1.5} className="w-8 h-8 md:w-10 md:h-10" />
                 </div>
@@ -139,12 +139,12 @@ const FabricFeatures = () => {
                   {feature.title}
                 </span>
               </motion.div>
-            ))}
+            )}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 // --- COLLEZIONI: dati dinamici da DB (Emerald Touch) ---
@@ -162,9 +162,9 @@ const LatestCollectionShowcase = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block mb-6"
-          >
-            <div className="w-20 h-20 bg-emerald-100/50 rounded-full flex items-center justify-center mx-auto p-2">
+            className="inline-block mb-6">
+
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto p-2 bg-inherit">
               <img src={logoED} alt="Emeraldress" className="w-full h-full object-contain" />
             </div>
           </motion.div>
@@ -172,8 +172,8 @@ const LatestCollectionShowcase = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif text-5xl md:text-7xl text-emerald-950 mb-6"
-          >
+            className="font-serif text-5xl md:text-7xl text-emerald-950 mb-6">
+
             Collezioni
           </motion.h2>
           <div className="flex items-center justify-center gap-2 text-neutral-500 font-sans tracking-[0.2em] uppercase text-sm md:text-base">
@@ -185,29 +185,29 @@ const LatestCollectionShowcase = () => {
           </div>
         </div>
 
-        {isLoading ? (
-          <div className="flex justify-center py-20">
+        {isLoading ?
+        <div className="flex justify-center py-20">
             <GemLoader />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-16 items-center justify-center max-w-7xl mx-auto mb-24">
-            {emeraldProducts.map((product, index) => (
-              <Link to={`/product/${product.id}`} key={product.id}>
+          </div> :
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-16 items-center justify-center max-w-7xl mx-auto mb-24">
+            {emeraldProducts.map((product, index) =>
+          <Link to={`/product/${product.id}`} key={product.id}>
                 <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.8 }}
-                  whileHover={{ y: -15 }}
-                  className={`relative group cursor-pointer ${index === 1 ? "md:-mt-16" : ""}`}
-                >
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              whileHover={{ y: -15 }}
+              className={`relative group cursor-pointer ${index === 1 ? "md:-mt-16" : ""}`}>
+
                   <div className="aspect-[3/4] overflow-hidden rounded-[2rem] shadow-2xl relative">
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500 z-10" />
                     <img
-                      src={product.images[0] || "/placeholder.svg"}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                    />
+                  src={product.images[0] || "/placeholder.svg"}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" />
+
                     <div className="absolute top-6 right-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                       <span className="font-serif text-emerald-900 font-bold">
                         {new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" }).format(product.price)}
@@ -223,24 +223,24 @@ const LatestCollectionShowcase = () => {
                   </div>
                 </motion.div>
               </Link>
-            ))}
+          )}
           </div>
-        )}
+        }
 
         <div className="flex justify-center">
           <Link to="/collezioni">
             <HoverBorderGradient
               containerClassName="rounded-full"
-              className="bg-[#e4ffec] text-emerald-950 flex items-center gap-3 px-12 py-5 font-bold tracking-widest uppercase text-sm shadow-xl hover:shadow-emerald-200/50 transition-all"
-            >
+              className="bg-[#e4ffec] text-emerald-950 flex items-center gap-3 px-12 py-5 font-bold tracking-widest uppercase text-sm shadow-xl hover:shadow-emerald-200/50 transition-all">
+
               Vedi Tutte le Collezioni
               <ArrowRight className="w-4 h-4" />
             </HoverBorderGradient>
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 // --- PAGINA PRINCIPALE ---
@@ -264,29 +264,29 @@ const Sostenibilita = () => {
             className="w-full max-w-7xl mx-auto"
             opts={{
               align: "center",
-              loop: true,
-            }}
-          >
+              loop: true
+            }}>
+
             <CarouselContent className="-ml-0">
-              {slides.map((slide) => (
-                <CarouselItem key={slide.id} className="pl-0 md:pl-4">
+              {slides.map((slide) =>
+              <CarouselItem key={slide.id} className="pl-0 md:pl-4">
                   <div className="p-4 md:p-2">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center min-h-[auto] md:min-h-[600px]">
                       <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        className="relative h-[400px] md:h-[500px] lg:h-[700px] w-full overflow-hidden group rounded-3xl md:rounded-[2rem] shadow-xl md:shadow-2xl"
-                      >
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      className="relative h-[400px] md:h-[500px] lg:h-[700px] w-full overflow-hidden group rounded-3xl md:rounded-[2rem] shadow-xl md:shadow-2xl">
+
                         <img
-                          src={slide.image}
-                          alt={slide.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
+                        src={slide.image}
+                        alt={slide.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+
                         <div className="absolute top-0 left-0 h-full w-20 bg-white/95 backdrop-blur-md flex items-center justify-center border-r border-emerald-100 hidden md:flex">
                           <span
-                            className="text-emerald-900 font-serif tracking-[0.3em] uppercase text-sm whitespace-nowrap font-bold"
-                            style={{ writingMode: "vertical-lr", transform: "rotate(180deg)" }}
-                          >
+                          className="text-emerald-900 font-serif tracking-[0.3em] uppercase text-sm whitespace-nowrap font-bold"
+                          style={{ writingMode: "vertical-lr", transform: "rotate(180deg)" }}>
+
                             {slide.verticalText}
                           </span>
                         </div>
@@ -306,7 +306,7 @@ const Sostenibilita = () => {
                     </div>
                   </div>
                 </CarouselItem>
-              ))}
+              )}
             </CarouselContent>
 
             {/* FRECCE CAROSELLO */}
@@ -321,8 +321,8 @@ const Sostenibilita = () => {
 
       {/* 4. COLLEZIONI */}
       <LatestCollectionShowcase />
-    </main>
-  );
+    </main>);
+
 };
 
 export default Sostenibilita;
