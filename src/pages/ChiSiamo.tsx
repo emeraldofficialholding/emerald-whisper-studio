@@ -24,7 +24,7 @@ const timelineData = [
         </p>
         <div className="grid grid-cols-2 gap-4">
           <img
-            src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_2zwpfk2zwpfk2zwp%20-%20Modificata.png"
+            src="https://jtmbnmpggzbucmgglisw.supabase.co/storage/v1/object/public/emerald-asset/Gemini_Generated_Image_bv0czcbv0czcbv0c%20-%20Modificata.png"
             alt="Ispirazione iniziale"
             className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-md"
           />
