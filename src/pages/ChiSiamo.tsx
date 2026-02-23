@@ -60,10 +60,10 @@ const timelineData = [
     content: (
       <div>
         <p className="text-neutral-600 text-sm md:text-base font-normal mb-4 leading-relaxed">
-          Una <strong>capsule essenziale</strong> di cinque capi iconici dall'
-          <strong>estetica minimalista e sensuale</strong>, definita dai contrasti netti tra bianco e nero. Un
-          immaginario visivo che trasmette il <strong>lusso discreto</strong> della sofisticata{" "}
-          <strong>estate mediterranea</strong>.
+          Tutta la produzione Emeraldress avviene esclusivamente in Italia. Dalla modellistica alla confezione finale,
+          ogni fase è gestita da professionisti specializzati nella lavorazione dei tessuti elasticizzati premium.
+          Collaboriamo con piccoli laboratori sartoriali del territorio,dove ogni capo viene confezionato manualmente da
+          sarte qualificate.
         </p>
       </div>
     ),
