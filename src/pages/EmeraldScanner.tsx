@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { supabase } from "@/supabaseCustom";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -18,10 +16,10 @@ import {
   Scissors,
   Repeat,
   ScanLine,
-  CheckCircle2,
   RefreshCw,
-  X,
   ChartNoAxesCombined,
+  ImageIcon,
+  X,
 } from "lucide-react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
@@ -31,14 +29,16 @@ const EmeraldScanner = () => {
   const [brand, setBrand] = useState("");
   const [material, setMaterial] = useState("");
   const [garmentType, setGarmentType] = useState("");
-  const [qualitySlider, setQualitySlider] = useState([50]);
-  const [urlDellaFotoCaricata, setUrlDellaFotoCaricata] = useState("");
+  const [perceivedQuality, setPerceivedQuality] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const [phase, setPhase] = useState<ScannerPhase>("input");
   const [recordId, setRecordId] = useState<string | null>(null);
   const [resultScore, setResultScore] = useState<number | null>(null);
   const [resultDiagnosis, setResultDiagnosis] = useState<string | null>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
 
   // Cleanup polling on unmount
   useEffect(() => {
@@ -46,6 +46,13 @@ const EmeraldScanner = () => {
       if (pollingRef.current) clearInterval(pollingRef.current);
     };
   }, []);
+
+  // Cleanup preview URL
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   // Polling logic
   const startPolling = useCallback((id: string) => {
@@ -87,101 +94,121 @@ const EmeraldScanner = () => {
     setBrand("");
     setMaterial("");
     setGarmentType("");
-    setQualitySlider([50]);
-    setUrlDellaFotoCaricata("");
+    setPerceivedQuality("");
+    setSelectedFile(null);
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(null);
   };
 
-  const submitToBackend = async (imageUrl: string) => {
+  const handleFileSelect = (file: File) => {
+    setSelectedFile(file);
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(URL.createObjectURL(file));
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleFileSelect(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) handleFileSelect(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const removeFile = () => {
+    setSelectedFile(null);
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(null);
+  };
+
+  const handleSubmit = async () => {
+    const hasFile = !!selectedFile;
+    const hasText = brand || material || garmentType || perceivedQuality;
+
+    if (!hasFile && !hasText) {
+      toast.error("Carica una foto o compila almeno un campo per avviare l'analisi.");
+      return;
+    }
+
     setPhase("uploading");
 
     try {
-      // Insert into scanner_requests
-      const { data: record, error } = await supabase
+      let imageUrl: string | null = null;
+
+      // Step 1: Upload image if present
+      if (selectedFile) {
+        const ext = selectedFile.name.split(".").pop() || "jpg";
+        const filePath = `${crypto.randomUUID()}.${ext}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("scanner_uploads")
+          .upload(filePath, selectedFile);
+
+        if (uploadError) {
+          console.error("Upload error:", uploadError);
+          toast.error("Errore durante il caricamento dell'immagine. Riprova.");
+          setPhase("input");
+          return;
+        }
+
+        const { data: urlData } = supabase.storage
+          .from("scanner_uploads")
+          .getPublicUrl(filePath);
+
+        imageUrl = urlData.publicUrl;
+      }
+
+      // Step 2: Insert into database
+      const { data: record, error: dbError } = await supabase
         .from("scanner_requests")
-        .insert({ image_url: imageUrl, input_type: "image" })
+        .insert({
+          image_url: imageUrl,
+          input_type: selectedFile ? "image" : "manual",
+          brand: brand || null,
+          garment_type: garmentType || null,
+          material: material || null,
+        })
         .select()
         .maybeSingle();
 
-      if (error) {
-        console.error("Errore Supabase:", error);
-        toast.error(`DB Error: ${error.message} — ${error.details || ""}`, { duration: 10000 });
+      if (dbError || !record) {
+        console.error("DB error:", dbError);
+        toast.error("Errore nel salvataggio dei dati. Riprova.");
         setPhase("input");
         return;
       }
 
-      if (!record) {
-        toast.error("Errore: il record non è stato creato.", { duration: 10000 });
-        setPhase("input");
-        return;
-      }
-
-      // Call n8n webhook
+      // Step 3: Call n8n webhook
       const webhookRes = await fetch("https://n8n.kreareweb.com/webhook/krea-brain", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          record: { id: record.id, image_url: record.image_url },
-        }),
+        body: JSON.stringify({ id: record.id }),
       });
 
       if (!webhookRes.ok) {
-        const text = await webhookRes.text();
-        console.error("Webhook error:", webhookRes.status, text);
-        toast.error(`Webhook fallito (${webhookRes.status})`, { duration: 10000 });
+        console.error("Webhook error:", webhookRes.status);
+        toast.error("Errore di comunicazione con l'AI. Riprova.");
         setPhase("input");
         return;
       }
 
-      // Switch to waiting phase and start polling
+      // Step 4: Start polling
       setRecordId(record.id);
       setPhase("waiting");
       startPolling(record.id);
     } catch (err: any) {
       console.error("Errore:", err);
-      toast.error(`Errore imprevisto: ${err?.message || String(err)}`, { duration: 10000 });
+      toast.error("Si è verificato un errore imprevisto. Riprova.");
       setPhase("input");
     }
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setPhase("uploading");
-
-    const ext = file.name.split(".").pop() || "jpg";
-    const filePath = `${crypto.randomUUID()}.${ext}`;
-
-    try {
-      const { error: uploadError } = await supabase.storage
-        .from("scanner_uploads")
-        .upload(filePath, file);
-
-      if (uploadError) {
-        console.error("Upload error:", uploadError);
-        toast.error(`Upload fallito: ${uploadError.message}`);
-        setPhase("input");
-        return;
-      }
-
-      const { data: urlData } = supabase.storage
-        .from("scanner_uploads")
-        .getPublicUrl(filePath);
-
-      await submitToBackend(urlData.publicUrl);
-    } catch (err: any) {
-      console.error("Errore:", err);
-      toast.error(`Errore imprevisto: ${err?.message || String(err)}`, { duration: 10000 });
-      setPhase("input");
-    }
-  };
-
-  const handleManualSubmit = async () => {
-    if (!urlDellaFotoCaricata) {
-      toast.error("Per favore, carica un'immagine prima di analizzare");
-      return;
-    }
-    await submitToBackend(urlDellaFotoCaricata);
   };
 
   // Score visual helpers
@@ -276,80 +303,82 @@ const EmeraldScanner = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full max-w-xl h-full flex flex-col"
+                    className="w-full h-full flex flex-col"
                   >
-                    <Tabs defaultValue="photo" className="w-full h-full flex flex-col">
-                      <TabsList className="grid w-full grid-cols-2 mb-6 bg-white p-1 rounded-full shadow-sm border border-neutral-100 shrink-0">
-                        <TabsTrigger
-                          value="photo"
-                          className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
+                    <div className="bg-white rounded-3xl border border-neutral-100 shadow-sm p-6 md:p-8 flex flex-col h-full">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+                        {/* LEFT: Drop Zone */}
+                        <div
+                          ref={dropZoneRef}
+                          onDrop={handleDrop}
+                          onDragOver={handleDragOver}
+                          className="border-2 border-dashed border-neutral-200 bg-neutral-50/50 rounded-2xl flex flex-col items-center justify-center relative group hover:bg-white hover:border-emerald-300 transition-all duration-300 min-h-[200px]"
                         >
-                          Carica Foto
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="manual"
-                          className="rounded-full text-xs py-2 data-[state=active]:bg-neutral-900 data-[state=active]:text-white transition-all"
-                        >
-                          Manuale
-                        </TabsTrigger>
-                      </TabsList>
-
-                      <div className="flex-1 relative">
-                        {/* TAB FOTO */}
-                        <TabsContent value="photo" className="h-full mt-0">
-                          <div className="h-full border-2 border-dashed border-neutral-200 bg-white/50 rounded-3xl flex flex-col items-center justify-center relative group hover:bg-white hover:border-emerald-300 transition-all duration-300">
-                            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mb-4 shadow-inner group-hover:scale-110 transition-transform">
-                              <Upload className="w-6 h-6 text-emerald-600" />
-                            </div>
-                            <h3 className="font-serif text-lg text-neutral-900 mb-1">Drop Zone</h3>
-                            <p className="text-xs text-neutral-400 font-sans mb-6">Trascina o scatta una foto</p>
-                            <label className="cursor-pointer relative z-10">
-                              <span className="inline-flex items-center gap-2 bg-neutral-900 text-white px-6 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-bold hover:bg-emerald-900 transition-all shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-0.5">
-                                <ScanLine className="w-3 h-3" /> Seleziona File
-                              </span>
-                              <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
-                            </label>
-                          </div>
-                        </TabsContent>
-
-                        {/* TAB MANUALE */}
-                        <TabsContent value="manual" className="h-full mt-0">
-                          <div className="h-full bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm flex flex-col justify-between">
-                            <div className="space-y-4">
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <Label htmlFor="brand" className="text-[10px] uppercase text-neutral-400 mb-1 block">Brand</Label>
-                                  <Input id="brand" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Es. Gucci" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
-                                </div>
-                                <div>
-                                  <Label htmlFor="garment" className="text-[10px] uppercase text-neutral-400 mb-1 block">Tipo</Label>
-                                  <Input id="garment" value={garmentType} onChange={(e) => setGarmentType(e.target.value)} placeholder="Es. Camicia" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
-                                </div>
-                              </div>
-                              <div>
-                                <Label htmlFor="material" className="text-[10px] uppercase text-neutral-400 mb-1 block">Materiale</Label>
-                                <Input id="material" value={material} onChange={(e) => setMaterial(e.target.value)} placeholder="Es. 100% Cotone" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
-                              </div>
-                              <div className="pt-2">
-                                <div className="flex justify-between mb-2">
-                                  <Label className="text-[10px] uppercase text-neutral-400">Qualità Percepita</Label>
-                                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">{qualitySlider[0]}%</span>
-                                </div>
-                                <Slider value={qualitySlider} onValueChange={setQualitySlider} max={100} step={1} />
-                              </div>
-                            </div>
-                            <div onClick={handleManualSubmit} className="mt-4">
-                              <HoverBorderGradient
-                                containerClassName={cn("rounded-full w-full", !brand && "opacity-50 pointer-events-none")}
-                                className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3 font-bold tracking-widest uppercase text-xs"
+                          {previewUrl ? (
+                            <div className="relative w-full h-full flex items-center justify-center p-4">
+                              <img
+                                src={previewUrl}
+                                alt="Anteprima"
+                                className="max-h-full max-w-full object-contain rounded-xl shadow-sm"
+                              />
+                              <button
+                                onClick={removeFile}
+                                className="absolute top-3 right-3 w-7 h-7 bg-neutral-900/70 hover:bg-neutral-900 text-white rounded-full flex items-center justify-center transition-colors"
                               >
-                                Avvia Analisi
-                              </HoverBorderGradient>
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-3 shadow-inner group-hover:scale-110 transition-transform">
+                                <Upload className="w-5 h-5 text-emerald-600" />
+                              </div>
+                              <h3 className="font-serif text-base text-neutral-900 mb-1">Carica Foto</h3>
+                              <p className="text-[11px] text-neutral-400 font-sans mb-4">Trascina o seleziona un'immagine</p>
+                              <label className="cursor-pointer relative z-10">
+                                <span className="inline-flex items-center gap-2 bg-neutral-900 text-white px-5 py-2 rounded-full text-[10px] tracking-[0.15em] uppercase font-bold hover:bg-emerald-900 transition-all shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-0.5">
+                                  <ScanLine className="w-3 h-3" /> Seleziona File
+                                </span>
+                                <input type="file" accept="image/*" className="hidden" onChange={handleFileInput} />
+                              </label>
+                            </>
+                          )}
+                        </div>
+
+                        {/* RIGHT: Text Fields */}
+                        <div className="flex flex-col justify-center space-y-4">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="brand" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Brand</Label>
+                              <Input id="brand" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Es. Gucci" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                            </div>
+                            <div>
+                              <Label htmlFor="garment" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Tipo</Label>
+                              <Input id="garment" value={garmentType} onChange={(e) => setGarmentType(e.target.value)} placeholder="Es. Camicia" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
                             </div>
                           </div>
-                        </TabsContent>
+                          <div>
+                            <Label htmlFor="material" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Materiale</Label>
+                            <Input id="material" value={material} onChange={(e) => setMaterial(e.target.value)} placeholder="Es. 100% Cotone" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                          </div>
+                          <div>
+                            <Label htmlFor="quality" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Qualità Percepita</Label>
+                            <Input id="quality" value={perceivedQuality} onChange={(e) => setPerceivedQuality(e.target.value)} placeholder="Es. Alta, Media, Bassa" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                          </div>
+                        </div>
                       </div>
-                    </Tabs>
+
+                      {/* CTA */}
+                      <div className="mt-6" onClick={handleSubmit}>
+                        <HoverBorderGradient
+                          containerClassName="rounded-full w-full"
+                          className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3.5 font-bold tracking-widest uppercase text-xs"
+                        >
+                          <ScanLine className="w-4 h-4 mr-2" />
+                          Avvia Analisi
+                        </HoverBorderGradient>
+                      </div>
+                    </div>
                   </motion.div>
                 )}
 
