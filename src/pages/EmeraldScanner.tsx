@@ -107,7 +107,8 @@ const EmeraldScanner = () => {
     // Start UI simulation immediately
     await runAnalysisSimulation();
 
-    const filePath = `${Date.now()}-${file.name}`;
+    const ext = file.name.split(".").pop() || "jpg";
+    const filePath = `${crypto.randomUUID()}.${ext}`;
 
     try {
       // Upload file
