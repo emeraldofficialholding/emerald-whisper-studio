@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import GemLoader from "@/components/GemLoader";
 
 type ScannerPhase = "input" | "uploading" | "waiting" | "result";
 
@@ -69,7 +70,7 @@ const EmeraldScanner = () => {
     // 60s timeout
     timeoutRef.current = setTimeout(() => {
       stopPolling();
-      toast.error("L'analisi sta richiedendo più tempo del previsto. Riprova tra poco.");
+      toast.error("L'analisi richiede tempo, i risultati appariranno a breve");
       setPhase("input");
     }, 60000);
 
@@ -143,8 +144,8 @@ const EmeraldScanner = () => {
   };
 
   const handleSubmit = async () => {
-    const hasFile = !!selectedFile;
-    const hasText = brand || material || garmentType || perceivedQuality;
+    const hasFile = Boolean(selectedFile);
+    const hasText = [brand, material, garmentType, perceivedQuality].some((value) => value.trim().length > 0);
 
     if (!hasFile && !hasText) {
       toast.error("Carica una foto o compila almeno un campo per avviare l'analisi.");
@@ -156,14 +157,25 @@ const EmeraldScanner = () => {
     try {
       let imageUrl: string | null = null;
 
-      // Step 1: Upload image if present
+      // Step 1: Upload image and get public URL
       if (selectedFile) {
-        const ext = selectedFile.name.split(".").pop() || "jpg";
-        const filePath = `${crypto.randomUUID()}.${ext}`;
+        const rawName = selectedFile.name.replace(/\.[^/.]+$/, "");
+        const safeName = rawName
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-zA-Z0-9_-]/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "")
+          .toLowerCase();
+        const rawExt = selectedFile.name.split(".").pop() ?? "jpg";
+        const safeExt = rawExt.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+        const filePath = `${crypto.randomUUID()}-${safeName || "scanner-upload"}.${safeExt}`;
 
         const { error: uploadError } = await supabase.storage
           .from("scanner_uploads")
-          .upload(filePath, selectedFile);
+          .upload(filePath, selectedFile, {
+            contentType: selectedFile.type || `image/${safeExt}`,
+          });
 
         if (uploadError) {
           console.error("Upload error:", uploadError);
@@ -172,34 +184,40 @@ const EmeraldScanner = () => {
           return;
         }
 
-        const { data: urlData } = supabase.storage
-          .from("scanner_uploads")
-          .getPublicUrl(filePath);
-
+        const { data: urlData } = supabase.storage.from("scanner_uploads").getPublicUrl(filePath);
         imageUrl = urlData.publicUrl;
       }
 
-      // Step 2: Insert into database
+      // Step 2: Insert and fetch created row
       const { data: record, error: dbError } = await supabase
         .from("scanner_requests")
-        .insert({
-          image_url: imageUrl,
-          input_type: selectedFile ? "image" : "manual",
-          brand: brand || null,
-          garment_type: garmentType || null,
-          material: material || null,
-        })
+        .insert([
+          {
+            image_url: imageUrl,
+            input_type: selectedFile ? "image" : "manual",
+            brand: brand || null,
+            garment_type: garmentType || null,
+            material: material || null,
+          },
+        ])
         .select()
-        .maybeSingle();
+        .single();
 
-      if (dbError || !record) {
+      if (dbError) {
         console.error("DB error:", dbError);
         toast.error("Errore nel salvataggio dei dati. Riprova.");
         setPhase("input");
         return;
       }
 
-      // Step 3: Call n8n webhook
+      if (!record?.id) {
+        console.error("Record ID mancante dopo insert", record);
+        toast.error("Errore nel recupero dell'ID analisi. Riprova.");
+        setPhase("input");
+        return;
+      }
+
+      // Step 3: Call n8n webhook only when ID exists
       const webhookRes = await fetch("https://n8n.kreareweb.com/webhook/krea-brain", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -329,17 +347,19 @@ const EmeraldScanner = () => {
                         >
                           {previewUrl ? (
                             <div className="relative w-full h-full flex items-center justify-center p-4">
-                              <img
-                                src={previewUrl}
-                                alt="Anteprima"
-                                className="max-h-full max-w-full object-contain rounded-xl shadow-sm"
-                              />
-                              <button
-                                onClick={removeFile}
-                                className="absolute top-3 right-3 w-7 h-7 bg-neutral-900/70 hover:bg-neutral-900 text-white rounded-full flex items-center justify-center transition-colors"
-                              >
-                                <X className="w-3.5 h-3.5" />
-                              </button>
+                              <div className="relative">
+                                <img
+                                  src={previewUrl}
+                                  alt="Anteprima immagine caricata"
+                                  className="w-44 h-44 object-cover rounded-full border border-emerald-200 shadow-[0_10px_35px_-15px_rgba(5,150,105,0.65)]"
+                                />
+                                <button
+                                  onClick={removeFile}
+                                  className="absolute -top-2 -right-2 w-7 h-7 bg-neutral-900/80 hover:bg-neutral-900 text-white rounded-full flex items-center justify-center transition-colors"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
                             </div>
                           ) : (
                             <>
@@ -349,7 +369,7 @@ const EmeraldScanner = () => {
                               <h3 className="font-serif text-base text-neutral-900 mb-1">Carica Foto</h3>
                               <p className="text-[11px] text-neutral-400 font-sans mb-4">Trascina o seleziona un'immagine</p>
                               <label className="cursor-pointer relative z-10">
-                                <span className="inline-flex items-center gap-2 bg-neutral-900 text-white px-5 py-2 rounded-full text-[10px] tracking-[0.15em] uppercase font-bold hover:bg-emerald-900 transition-all shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-0.5">
+                                <span className="inline-flex items-center gap-2 bg-neutral-900 text-white px-5 py-2 rounded-full text-[10px] tracking-[0.15em] uppercase font-bold hover:bg-emerald-900 transition-all shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-0.5 font-sans">
                                   <ScanLine className="w-3 h-3" /> Seleziona File
                                 </span>
                                 <input type="file" accept="image/*" className="hidden" onChange={handleFileInput} />
@@ -359,24 +379,24 @@ const EmeraldScanner = () => {
                         </div>
 
                         {/* RIGHT: Text Fields */}
-                        <div className="flex flex-col justify-center space-y-4">
+                        <div className="flex flex-col justify-center space-y-4 font-sans">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="brand" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Brand</Label>
-                              <Input id="brand" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Es. Gucci" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                              <Label htmlFor="brand" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider font-sans">Brand</Label>
+                              <Input id="brand" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Es. Gucci" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg font-sans" />
                             </div>
                             <div>
-                              <Label htmlFor="garment" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Tipo</Label>
-                              <Input id="garment" value={garmentType} onChange={(e) => setGarmentType(e.target.value)} placeholder="Es. Camicia" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                              <Label htmlFor="garment" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider font-sans">Tipo Capo</Label>
+                              <Input id="garment" value={garmentType} onChange={(e) => setGarmentType(e.target.value)} placeholder="Es. Camicia" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg font-sans" />
                             </div>
                           </div>
                           <div>
-                            <Label htmlFor="material" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Materiale</Label>
-                            <Input id="material" value={material} onChange={(e) => setMaterial(e.target.value)} placeholder="Es. 100% Cotone" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                            <Label htmlFor="material" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider font-sans">Materiale</Label>
+                            <Input id="material" value={material} onChange={(e) => setMaterial(e.target.value)} placeholder="Es. 100% Cotone" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg font-sans" />
                           </div>
                           <div>
-                            <Label htmlFor="quality" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider">Qualità Percepita</Label>
-                            <Input id="quality" value={perceivedQuality} onChange={(e) => setPerceivedQuality(e.target.value)} placeholder="Es. Alta, Media, Bassa" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg" />
+                            <Label htmlFor="quality" className="text-[10px] uppercase text-neutral-400 mb-1 block tracking-wider font-sans">Qualità Percepita</Label>
+                            <Input id="quality" value={perceivedQuality} onChange={(e) => setPerceivedQuality(e.target.value)} placeholder="Es. Alta, Media, Bassa" className="h-10 text-sm bg-neutral-50 border-transparent focus:bg-white rounded-lg font-sans" />
                           </div>
                         </div>
                       </div>
@@ -385,7 +405,7 @@ const EmeraldScanner = () => {
                       <div className="mt-6" onClick={handleSubmit}>
                         <HoverBorderGradient
                           containerClassName="rounded-full w-full"
-                          className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3.5 font-bold tracking-widest uppercase text-xs"
+                           className="bg-[#e4ffec] text-emerald-950 w-full flex justify-center py-3.5 font-bold tracking-widest uppercase text-xs font-sans"
                         >
                           <ScanLine className="w-4 h-4 mr-2" />
                           Avvia Analisi
@@ -403,47 +423,10 @@ const EmeraldScanner = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
                     transition={{ duration: 0.5 }}
-                    className="flex flex-col items-center justify-center w-full h-full gap-10"
+                    className="flex flex-col items-center justify-center w-full h-full gap-8"
                   >
-                    {/* Elegant circular spinner */}
-                    <div className="relative w-28 h-28">
-                      {/* Outer static ring */}
-                      <div className="absolute inset-0 rounded-full border border-neutral-200" />
-                      {/* Animated arc */}
-                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 112 112">
-                        <motion.circle
-                          cx="56"
-                          cy="56"
-                          r="52"
-                          fill="none"
-                          strokeWidth="1.5"
-                          stroke="url(#emerald-gradient)"
-                          strokeLinecap="round"
-                          strokeDasharray="326.73"
-                          strokeDashoffset="245"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                          style={{ transformOrigin: "center" }}
-                        />
-                        <defs>
-                          <linearGradient id="emerald-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#059669" />
-                            <stop offset="100%" stopColor="#34d399" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      {/* Center gem icon */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        >
-                          <Gem className="w-7 h-7 text-emerald-600/60" />
-                        </motion.div>
-                      </div>
-                    </div>
+                    <GemLoader />
 
-                    {/* Elegant text */}
                     <div className="text-center space-y-3 max-w-sm">
                       <motion.p
                         initial={{ opacity: 0 }}

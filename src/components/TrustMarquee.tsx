@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -80,23 +80,33 @@ function MarqueeBand({ children, direction = "left", baseVelocity = 0.5, classNa
 }
 
 const TrustMarquee = () => {
+  const highlights = [
+    "SUSTAINABLE FASHION",
+    "ECO LUXURY",
+    "MADE IN ITALY",
+    "ECOLOGICAL FABRICS",
+    "LUSSO SOSTENIBILE",
+    "COSTA SMERALDA STYLE",
+    "ECO FRIENDLY",
+  ];
+
   return (
     <section className="overflow-hidden bg-white relative border-b border-emerald-100/30 py-0">
       <div className="relative z-10">
         <MarqueeBand baseVelocity={0.8} direction="left" className="bg-[#e4ffec] border-y border-emerald-100/50">
-          {/* MODIFICA QUI: Aggiunto shrink-0, pr-8 e i tag <span> per mantenere la struttura intatta */}
-          <div className="text-emerald-950 font-sans font-medium text-base md:text-lg tracking-[0.15em] flex items-center shrink-0 gap-8 pr-8">
-            <span>SUSTAINABLE FASHION</span>{" "}
-            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
-            <span>ECO LUXURY</span> <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
-            <span>MADE IN ITALY</span> <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
-            <span>ECOLOGICAL FABRICS</span>{" "}
-            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
-            <span>LUSSO SOSTENIBILE</span>{" "}
-            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
-            <span>COSTA SMERALDA STYLE</span>{" "}
-            <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
-            <span>ECO FRIENDLY</span> <img src={logoED} alt="logo" className="h-7 w-auto object-contain shrink-0" />
+          <div className="text-emerald-950 font-sans font-medium text-base md:text-lg tracking-[0.15em] flex items-center shrink-0 gap-6 pr-8">
+            {highlights.map((word, index) => (
+              <Fragment key={word}>
+                <span className="inline-flex items-center whitespace-nowrap">{word}</span>
+                {index < highlights.length - 1 && (
+                  <img
+                    src={logoED}
+                    alt="Emerald divider"
+                    className="h-7 w-auto object-contain shrink-0 self-center"
+                  />
+                )}
+              </Fragment>
+            ))}
           </div>
         </MarqueeBand>
       </div>
