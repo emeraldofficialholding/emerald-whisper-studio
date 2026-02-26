@@ -148,7 +148,7 @@ const EmeraldScanner = () => {
     const hasText = [brand, material, garmentType, perceivedQuality].some((value) => value.trim().length > 0);
 
     if (!hasFile && !hasText) {
-      toast.error("Carica una foto o compila almeno un campo per avviare l'analisi.");
+      toast.error("Inserisci almeno una foto o compila i dettagli del capo");
       return;
     }
 
@@ -157,7 +157,7 @@ const EmeraldScanner = () => {
     try {
       let imageUrl: string | null = null;
 
-      // Step 1: Upload image and get public URL
+      // Step 1: Upload image only if selectedFile exists
       if (selectedFile) {
         const rawName = selectedFile.name.replace(/\.[^/.]+$/, "");
         const safeName = rawName
@@ -188,8 +188,8 @@ const EmeraldScanner = () => {
         imageUrl = urlData.publicUrl;
       }
 
-      // Step 2: Insert and fetch created row
-      const { data: record, error: dbError } = await supabase
+      // Step 2: Insert and get created record with .select().single()
+      const { data, error } = await supabase
         .from("scanner_requests")
         .insert([
           {
@@ -203,25 +203,25 @@ const EmeraldScanner = () => {
         .select()
         .single();
 
-      if (dbError) {
-        console.error("DB error:", dbError);
+      if (error) {
+        console.error("DB error:", error);
         toast.error("Errore nel salvataggio dei dati. Riprova.");
         setPhase("input");
         return;
       }
 
-      if (!record?.id) {
-        console.error("Record ID mancante dopo insert", record);
+      if (!data?.id) {
+        console.error("Record ID mancante dopo insert", data);
         toast.error("Errore nel recupero dell'ID analisi. Riprova.");
         setPhase("input");
         return;
       }
 
-      // Step 3: Call n8n webhook only when ID exists
+      // Step 3: Call n8n webhook only if data.id exists
       const webhookRes = await fetch("https://n8n.kreareweb.com/webhook/krea-brain", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: record.id }),
+        body: JSON.stringify({ id: data.id }),
       });
 
       if (!webhookRes.ok) {
@@ -231,10 +231,10 @@ const EmeraldScanner = () => {
         return;
       }
 
-      // Step 4: Start polling
-      setRecordId(record.id);
+      // Step 4: poll only this record by its id
+      setRecordId(data.id);
       setPhase("waiting");
-      startPolling(record.id);
+      startPolling(data.id);
     } catch (err: any) {
       console.error("Errore:", err);
       toast.error("Si è verificato un errore imprevisto. Riprova.");
