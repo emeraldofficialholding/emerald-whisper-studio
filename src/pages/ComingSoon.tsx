@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
 import logoED from "@/assets/logo-ed.png";
 import { toast } from "sonner";
-import { supabase } from "@/supabaseCustom";
+
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 // ── Shimmer / sparkle particles ────────────────────────────────────────────────
@@ -33,13 +33,17 @@ export default function ComingSoon() {
     }
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from("newsletter_leads").insert([{
-        full_name: formData.nome,
-        email: formData.email,
-        phone: formData.telefono,
-        source: "coming_soon"
-      }]);
-      if (error) throw error;
+      const res = await fetch("https://n8n.kreareweb.com/webhook/newsletter-register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: formData.nome,
+          email: formData.email,
+          phone: formData.telefono,
+          source: "coming_soon"
+        }),
+      });
+      if (!res.ok) throw new Error("Webhook error");
       toast.success("Benvenuto nell'Inner Circle di Emeraldress.");
       setFormData({ nome: "", email: "", telefono: "" });
     } catch {
