@@ -5,7 +5,7 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { ArrowRight, Globe, Fingerprint, Scissors, Loader2 } from "lucide-react";
 import logoED from "@/assets/logo-ed.png";
 import { toast } from "sonner";
-import { supabase } from "@/supabaseCustom";
+
 
 const ManifestoSection = () => {
   // Form State
@@ -32,16 +32,18 @@ const ManifestoSection = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("newsletter_leads").insert([
-      {
-        full_name: formData.nome,
-        email: formData.email,
-        phone: formData.telefono,
-        source: "manifesto_home"
-      }]
-      );
+      const res = await fetch("https://n8n.kreareweb.com/webhook/newsletter-register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: formData.nome,
+          email: formData.email,
+          phone: formData.telefono,
+          source: "manifesto_home"
+        }),
+      });
 
-      if (error) throw error;
+      if (!res.ok) throw new Error("Webhook error");
 
       toast.success("Benvenuto nell'Inner Circle di Emeraldress.");
       setFormData({ nome: "", email: "", telefono: "" });
