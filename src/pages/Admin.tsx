@@ -176,11 +176,24 @@ export default function Admin() {
 
   // ── Data fetching ────────────────────────────────────────────────────────────
   async function fetchAll() {
-    const [{ data: prods }, { data: ords }, { data: subs }] = await Promise.all([
+    const [{ data: prods }, { data: ords }, { data: subs, error: subscribersError }] = await Promise.all([
       supabase.from("products").select("*").order("created_at", { ascending: false }),
       supabase.from("orders").select("*").order("created_at", { ascending: false }),
-      supabase.from("subscribers").select("*").order("created_at", { ascending: false }),
+      supabase.from("subscribers").select("*"),
     ]);
+
+    const currentSupabaseUrl = (supabase as unknown as { supabaseUrl?: string }).supabaseUrl ?? "unknown";
+    console.log("[Admin Newsletter Debug]", {
+      supabaseUrl: currentSupabaseUrl,
+      subscribersError,
+      subscribersData: subs,
+    });
+
+    if (subscribersError) {
+      console.error("Errore fetch subscribers:", subscribersError);
+      toast.error("Errore nel caricamento iscritti newsletter");
+    }
+
     setProducts((prods as Product[]) || []);
     const ordList = (ords as Order[]) || [];
     setOrders(ordList);
