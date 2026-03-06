@@ -131,6 +131,36 @@ export type Database = {
         }
         Relationships: []
       }
+      subscribers: {
+        Row: {
+          active: boolean
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          phone: string | null
+          source: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          name?: string | null
+          phone?: string | null
+          source?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          phone?: string | null
+          source?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
