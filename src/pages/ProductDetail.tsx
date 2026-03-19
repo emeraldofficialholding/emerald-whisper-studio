@@ -263,6 +263,16 @@ const ProductDetail = () => {
 
       <main className="pt-20 pb-24 bg-background">
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
+
+          {/* Back to collection */}
+          <Link
+            to="/collezioni"
+            className="inline-flex items-center gap-1.5 font-sans text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors mb-6 md:mb-8 group"
+          >
+            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
+            Collezione
+          </Link>
+
           <div className="lg:grid lg:grid-cols-[1fr_420px] xl:grid-cols-[1fr_480px] lg:gap-16 xl:gap-24">
 
             {/* ── Gallery Column ── */}
@@ -425,6 +435,9 @@ const ProductDetail = () => {
               </div>
             </motion.div>
           </div>
+
+          {/* Related products carousel */}
+          <RelatedProducts currentProductId={product.id} category={product.category} />
         </div>
       </main>
     </>
