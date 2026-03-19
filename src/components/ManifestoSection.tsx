@@ -81,7 +81,7 @@ const ManifestoSection = () => {
               La nostra Filosofia
             </span>
 
-            <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-12 drop-shadow-lg">
+            <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-12 drop-shadow-lg" aria-label="La moda non deve costare la Terra">
               "La moda non deve <br /> costare la Terra."
             </h2>
 
