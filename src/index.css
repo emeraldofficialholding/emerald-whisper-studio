@@ -119,3 +119,5 @@
 .animate-butterfly {
   animation: butterfly-float 2s ease-in-out infinite;
 }
+
+body { overflow-x: hidden; }
