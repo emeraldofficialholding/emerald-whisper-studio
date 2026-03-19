@@ -115,7 +115,7 @@ const ManifestoSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}>
 
-                <h3 className="font-serif text-5xl md:text-6xl text-emerald-950 leading-none mb-6">
+                <h3 className="font-serif text-5xl md:text-6xl text-emerald-950 leading-none mb-6" aria-label="Lusso Responsabile">
                   Lusso <br /> <span className="italic text-emerald-600">Responsabile</span>
                 </h3>
                 <div className="h-1 w-20 bg-emerald-400 mb-8" />
