@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
 import GemLoader from "@/components/GemLoader";
