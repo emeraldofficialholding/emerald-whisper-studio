@@ -240,8 +240,7 @@ const ManifestoSection = () => {
             </div>
             <h3 className="font-serif text-4xl md:text-5xl text-emerald-950 mb-6">Entra nell'Emerald Circle</h3>
             <p className="text-emerald-800/80 font-sans text-lg max-w-xl mx-auto">
-              Ricevi <strong>inviti esclusivi</strong> per le sfilate, <strong>accesso anticipato</strong> ai drop limitati e contenuti riservati sulla
-              <strong>sostenibilità</strong>.
+              Ricevi <strong>inviti esclusivi</strong> per le sfilate, <strong>accesso anticipato</strong> ai drop limitati e contenuti riservati sulla <strong>sostenibilità</strong>.
             </p>
           </div>
 
