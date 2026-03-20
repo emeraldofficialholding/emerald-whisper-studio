@@ -617,7 +617,7 @@ const EmeraldScanner = () => {
                         transition={{ duration: 0.6, ease: "easeOut" }}
                         className="w-full max-w-lg flex flex-col items-center justify-start py-4 pb-20"
                       >
-                        <div className="bg-white w-full rounded-[2rem] p-8 md:p-10 text-center shadow-[0_8px_60px_-12px_rgba(0,0,0,0.08)] border border-neutral-100 relative overflow-hidden">
+                        <div className="bg-white w-full rounded-[2rem] p-8 md:p-10 text-center shadow-[0_8px_60px_-12px_rgba(0,0,0,0.08)] border border-neutral-100 relative overflow-hidden break-words overflow-wrap-anywhere">
                           {/* Subtle top accent */}
                           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent" />
 
@@ -675,8 +675,8 @@ const EmeraldScanner = () => {
                           >
                             <div className="w-8 h-px bg-stone-200 mx-auto mb-5" />
                             <p
-                              className="font-serif text-sm md:text-base text-stone-800 text-center max-w-xs mx-auto"
-                              style={{ lineHeight: 1.8, letterSpacing: "0.01em" }}
+                              className="font-serif text-sm md:text-base text-stone-800 text-center max-w-xs mx-auto break-words whitespace-normal"
+                              style={{ lineHeight: 1.8, letterSpacing: "0.01em", overflowWrap: "anywhere" }}
                             >
                               {diagnosisText}
                             </p>
