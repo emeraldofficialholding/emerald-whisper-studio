@@ -675,8 +675,8 @@ const EmeraldScanner = () => {
                           >
                             <div className="w-8 h-px bg-stone-200 mx-auto mb-5" />
                             <p
-                              className="font-serif text-sm md:text-base text-stone-800 text-center max-w-xs mx-auto"
-                              style={{ lineHeight: 1.8, letterSpacing: "0.01em" }}
+                              className="font-serif text-sm md:text-base text-stone-800 text-center max-w-xs mx-auto break-words whitespace-normal"
+                              style={{ lineHeight: 1.8, letterSpacing: "0.01em", overflowWrap: "anywhere" }}
                             >
                               {diagnosisText}
                             </p>
